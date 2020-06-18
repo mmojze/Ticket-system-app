@@ -1,5 +1,8 @@
 package vistas;
 
+import java.util.List;
+
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import entidades.Lugar;
@@ -13,6 +16,8 @@ public class PanelManager {
 	private FormVisualizarLugar FormVisualizarLugar;
 	private FormModificarLugar FormModificarLugar;
 	private FormCrearLugar FormCrearLugar;
+	private FormAdministrarLugares FormAdministrarLugares;
+	private FormListarLugares FormListarLugares;
 	
 	public PanelManager() { 
 		
@@ -22,6 +27,7 @@ public class PanelManager {
 	public void armarManager() { 
 		
 		frame = new JFrame(); 
+		frame.setBounds(200, 200, 500, 500);
 		
 		FormLogin = new FormLogin(this);
 		FormLogin.armarFormLogin();
@@ -38,6 +44,11 @@ public class PanelManager {
 		FormModificarLugar = new FormModificarLugar(this);
 		FormModificarLugar.armarFormModificarLugar();
 		
+		FormAdministrarLugares = new FormAdministrarLugares(this);
+		FormAdministrarLugares.armarFormAdministrarLugares();
+		
+		FormListarLugares = new FormListarLugares(this);
+		FormListarLugares.armarFormListarLugaresList();
 	}
 	
 	public void showFrame() {
@@ -58,7 +69,7 @@ public class PanelManager {
 		frame.getContentPane().repaint();
 		}
 	
-	public void mostrarFormVisualizarLugar() {
+	public void mostrarFormVisualizarLugar(Lugar lugar) {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormVisualizarLugar);
 		frame.getContentPane().validate();
@@ -72,7 +83,7 @@ public class PanelManager {
 		frame.getContentPane().repaint();
 	}
 	
-	public void mostrarFormModificarLugar() {
+	public void mostrarFormModificarLugar(Lugar lugar) {
 		
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormModificarLugar);
@@ -80,5 +91,27 @@ public class PanelManager {
 		frame.getContentPane().repaint();
 		
 	}
+	
+	public void mostrarFormAdministrarLugar(List<Lugar> lugares) {
+		
+		FormAdministrarLugares.setLugares(lugares);
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(FormAdministrarLugares);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+		
+	}
+	
+	public void mostrarFormListarLugares(List<Lugar> lugares) {
+		
+		FormListarLugares.setLugares(lugares);
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(FormListarLugares);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+		
+	}
+	
+	
 	
 }

@@ -57,16 +57,10 @@ public class FormCrearLugar extends AbstractFormLugar {
 			} else {
 
 				int capacidad = Integer.parseInt(tCapacidad.getText());
-
 				Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen);
-
-				LugarDAO altaLugar = new LugarDAOH2();
-
-				int idLugar = altaLugar.crearLugar(nuevoLugar);
-
-				nuevoLugar.setIdLugar(idLugar);
-
-				System.out.println(idLugar);
+				nuevoLugar.crearLugar(nuevoLugar);
+				
+				JOptionPane.showMessageDialog(popupEstadio, "Lugar creado con éxito");
 				
 			}
 

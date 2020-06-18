@@ -82,9 +82,9 @@ public class FormLogin extends JPanel implements ActionListener {
 			String contraseña = new String(tContraseña.getPassword());
 			String usuario = tUsuario.getText();
 
-			Usuario usuarioLogeado = null;
 			try {
-				usuarioLogeado = Usuario.usuarioLogin(usuario, contraseña);
+
+				Usuario usuarioLogeado = Usuario.logearse(tUsuario.getText(), contraseña);
 
 				String tipoUsuario = usuarioLogeado.getTipoUsuario();
 
@@ -94,10 +94,9 @@ public class FormLogin extends JPanel implements ActionListener {
 					panelManager.mostrarFormHome(usuarioLogeado);
 					break;
 				case "Vendedor":
-					JOptionPane.showMessageDialog(popupLogin,
-							"En construcción");
+					JOptionPane.showMessageDialog(popupLogin, "En construcción");
 				}
-				
+
 			} catch (NoSeEncontroUsuarioException e) {
 				JOptionPane.showMessageDialog(popupLogin,
 						"El usuario no existe o la contraseña es incorrecta, por favor revise los datos");

@@ -26,7 +26,7 @@ public class DBManager {
 		
 		try {
 			c = DriverManager.getConnection(DB_BASE_URL, DB_USERNAME, DB_PASSWORD);
-			c.setAutoCommit(true);
+			c.setAutoCommit(false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
