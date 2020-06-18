@@ -59,19 +59,10 @@ public class FormModificarLugar extends AbstractFormLugar {
 
 				int capacidad = Integer.parseInt(tCapacidad.getText());
 
-				Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen);
+				Lugar lugarModificado = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen, this.lugar.getIdLugar());
 
-				LugarDAO altaLugar = new LugarDAOH2();
+				lugarModificado.modificarLugar(lugarModificado);
 				
-				// Insertar modificacion
-				
-				int idLugar = altaLugar.crearLugar(nuevoLugar);
-
-				nuevoLugar.setIdLugar(idLugar);
-
-				//panelManager.mostrarFormUbicacion(nuevoLugar);
-				
-				// Insertar modificación 
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {

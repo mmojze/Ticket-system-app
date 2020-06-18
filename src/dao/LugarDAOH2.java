@@ -67,7 +67,7 @@ public class LugarDAOH2 implements LugarDAO {
 
 			String sentencia = "UPDATE LUGAR SET CAPACIDAD_TOTAL = " + lugar.getCapacidadTotal() + ", " + "NOMBRE = '"
 					+ lugar.getNombre() + "' ," + "DIRECCION = '" + lugar.getDireccion() + "' ,"
-					+ "NOMBRE_IMAGEN_LUGAR = '" + lugar.getFotoLugar() + "';";
+					+ "NOMBRE_IMAGEN_LUGAR = '" + lugar.getFotoLugar() + "' WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
 
 			s.executeUpdate(sentencia);
 			conexion.commit();
