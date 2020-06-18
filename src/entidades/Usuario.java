@@ -73,7 +73,7 @@ public class Usuario {
 
 	}
 
-	public static Usuario logearse(String usuario, String contraseña) throws NoSeEncontroUsuarioException {
+	public Usuario logearse(String usuario, String contraseña) throws NoSeEncontroUsuarioException {
 
 		UsuarioDAO usuarioLogin = new UsuarioDAOH2();
 

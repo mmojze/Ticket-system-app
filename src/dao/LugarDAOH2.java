@@ -35,10 +35,12 @@ public class LugarDAOH2 implements LugarDAO {
 			if (rs.next()) {
 				idGenerado = rs.getInt(1);
 			} else {
-				System.out.println("nope"); // Agregar exception
+				throw new DAONoHayResultadosException();
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DAONoHayResultadosException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -47,7 +49,6 @@ public class LugarDAOH2 implements LugarDAO {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
@@ -81,7 +82,6 @@ public class LugarDAOH2 implements LugarDAO {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
@@ -129,7 +129,6 @@ public class LugarDAOH2 implements LugarDAO {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
@@ -170,7 +169,6 @@ public class LugarDAOH2 implements LugarDAO {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();

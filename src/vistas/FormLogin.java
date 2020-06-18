@@ -84,7 +84,9 @@ public class FormLogin extends JPanel implements ActionListener {
 
 			try {
 
-				Usuario usuarioLogeado = Usuario.logearse(tUsuario.getText(), contraseña);
+				Usuario usuarioLogeado = new Usuario();
+				
+				usuarioLogeado = usuarioLogeado.logearse(tUsuario.getText(), contraseña);
 
 				String tipoUsuario = usuarioLogeado.getTipoUsuario();
 

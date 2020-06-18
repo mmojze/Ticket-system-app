@@ -63,6 +63,10 @@ public class FormModificarLugar extends AbstractFormLugar {
 
 				lugarModificado.modificarLugar(lugarModificado);
 				
+				JOptionPane.showMessageDialog(popupEstadio, "Lugar modificado con éxito");
+				
+				panelManager.mostrarFormHome(null);
+				
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {
