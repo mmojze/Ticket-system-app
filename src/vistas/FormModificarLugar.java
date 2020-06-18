@@ -21,7 +21,6 @@ public class FormModificarLugar extends AbstractFormLugar {
 	
 	public FormModificarLugar(PanelManager panelManager) {
 		super(panelManager);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void armarFormModificarLugar() { 

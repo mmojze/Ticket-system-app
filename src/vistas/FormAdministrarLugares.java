@@ -76,7 +76,7 @@ public class FormAdministrarLugares extends JPanel implements ActionListener {
 			int filaSeleccionada = this.tablaLugares.getSelectedRow();
 			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
 			System.out.println(lugar.getIdLugar());
-			//lugar.borrarLugar(lugar);
+			lugar.borrarLugar(lugar);
 			
 			JOptionPane.showMessageDialog(popupLugar,
 					"El lugar se ha borrado correctamente");
@@ -84,9 +84,15 @@ public class FormAdministrarLugares extends JPanel implements ActionListener {
 			
 		} else if (accion.getSource() == botonModificar) { 
 			
+			int filaSeleccionada = this.tablaLugares.getSelectedRow();
+			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
+			panelManager.mostrarFormModificarLugar(lugar);
 			
 		} else if (accion.getSource() == botonVisualizar) { 
 			
+			int filaSeleccionada = this.tablaLugares.getSelectedRow();
+			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
+			panelManager.mostrarFormVisualizarLugar(lugar);
 			
 			
 		} else if (accion.getSource() == botonVolver) {

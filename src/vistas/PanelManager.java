@@ -70,10 +70,14 @@ public class PanelManager {
 		}
 	
 	public void mostrarFormVisualizarLugar(Lugar lugar) {
+		
+		FormVisualizarLugar.setLugar(lugar);
+		FormVisualizarLugar.setimagenEstadio();
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormVisualizarLugar);
 		frame.getContentPane().validate();
 		frame.getContentPane().repaint();
+		
 	}
 	
 	public void mostrarFormCrearLugar() {
@@ -85,6 +89,7 @@ public class PanelManager {
 	
 	public void mostrarFormModificarLugar(Lugar lugar) {
 		
+		FormModificarLugar.setLugar(lugar);
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormModificarLugar);
 		frame.getContentPane().validate();

@@ -128,4 +128,11 @@ public class Lugar {
 		LugarDAO lugarDAO = new LugarDAOH2();
 		lugarDAO.eliminarLugar(lugar.getIdLugar());
 	}
+	
+	public void modificarLugar(Lugar lugar) {
+		
+		LugarDAO lugarDAO = new LugarDAOH2();
+		lugarDAO.modificarLugar(lugar);
+		
+	}
 }
