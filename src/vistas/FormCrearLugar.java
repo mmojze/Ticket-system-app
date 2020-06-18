@@ -17,6 +17,7 @@ public class FormCrearLugar extends AbstractFormLugar {
 	private JButton botonCargarImagen;
 	private JButton botonBorrarImagen;
 	private String nombreImagen;
+	private JButton botonVolver;
 
 	public FormCrearLugar(PanelManager panelManager) {
 		super(panelManager);
@@ -31,8 +32,12 @@ public class FormCrearLugar extends AbstractFormLugar {
 		botonBorrarImagen = new JButton("Borrar imagen");
 		botonBorrarImagen.addActionListener(this);
 		
+		botonVolver = new JButton("Volver");
+		botonVolver.addActionListener(this);
+		
 		this.add(botonCargarImagen);
 		this.add(botonBorrarImagen);
+		this.add(botonVolver);
 		
 	}
 
@@ -62,6 +67,8 @@ public class FormCrearLugar extends AbstractFormLugar {
 				
 				JOptionPane.showMessageDialog(popupEstadio, "Lugar creado con éxito");
 				
+				panelManager.mostrarFormHome(null);
+				
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {
@@ -75,6 +82,10 @@ public class FormCrearLugar extends AbstractFormLugar {
 			this.nombreImagen = null;
 			JOptionPane.showMessageDialog(popupEstadio, "Imagen borrada");
 
+		} else if (accion.getSource() == botonVolver) {
+			
+			panelManager.mostrarFormHome(null);
+			
 		}
 		
 	}

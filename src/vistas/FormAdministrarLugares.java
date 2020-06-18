@@ -77,6 +77,7 @@ public class FormAdministrarLugares extends JPanel implements ActionListener {
 			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
 			System.out.println(lugar.getIdLugar());
 			lugar.borrarLugar(lugar);
+			LugarTableModel.fireTableDataChanged();
 			
 			JOptionPane.showMessageDialog(popupLugar,
 					"El lugar se ha borrado correctamente");

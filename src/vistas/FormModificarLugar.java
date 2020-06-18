@@ -17,7 +17,7 @@ public class FormModificarLugar extends AbstractFormLugar {
 
 	private JButton botonCargarImagen;
 	private JButton botonBorrarImagen;
-	private String nombreImagen;
+
 	
 	public FormModificarLugar(PanelManager panelManager) {
 		super(panelManager);

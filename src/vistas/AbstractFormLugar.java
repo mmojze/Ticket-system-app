@@ -30,11 +30,10 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 	protected JTextField tCapacidad;
 	protected JLabel lDireccion;
 	protected JTextField tDireccion;
-	//protected JButton cargarImagen;
-	//protected String nombreImagen;
 	protected JFrame popupEstadio;
 	protected Lugar lugar; 
-	//protected JButton botonBorrarImagen;
+	protected String nombreImagen;
+
 
 	public AbstractFormLugar(PanelManager panelManager) {
 
@@ -45,8 +44,8 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 
 	public void armarFormLugar() {
 
-		GridLayout grid = new GridLayout(2, 2);
-		this.setLayout(grid);
+		this.setLayout((new BoxLayout(this, BoxLayout.Y_AXIS)));
+
 		this.setSize(1000, 1000);
 
 		lNombreEstadio = new JLabel("Nombre del estadio");
@@ -62,24 +61,12 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 		siguiente.setLocation(50, 50);
 		siguiente.addActionListener(this);
 		
-		//cargarImagen = new JButton("Cargar imagen");
-		//cargarImagen.addActionListener(this);
-		
-
-		
-		//botonBorrarImagen = new JButton("Borrar imagen");
-		//botonBorrarImagen.addActionListener(this);
-
 		this.add(tNombreEstadio);
 		this.add(lCapacidad);
 		this.add(tCapacidad);
 		this.add(lDireccion);
 		this.add(tDireccion);
 		this.add(siguiente);
-		
-		//this.add(cargarImagen);
-		//this.add(botonBorrarImagen);
-
 
 		setVisible(true);
 
@@ -93,6 +80,7 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 		tNombreEstadio.setText(this.lugar.getNombre());
 		tDireccion.setText(this.lugar.getDireccion());
 		tCapacidad.setText(capacidad);
+		this.nombreImagen = this.lugar.getFotoLugar();
 		
 	}
 	
