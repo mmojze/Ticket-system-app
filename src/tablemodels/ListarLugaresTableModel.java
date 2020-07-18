@@ -16,10 +16,12 @@ public class ListarLugaresTableModel extends AbstractTableModel {
 	private String[] nombresColumnas = { "Nombre de lugar", "Capacidad total", "Direccion", "Nombre de imagen" };
 
 	private Class[] tiposColumnas = { String.class, int.class, String.class, String.class };
+	
+	private Lugar[] asd = {};
+	
+	private List<?> contenido;
 
-	private List<Lugar> contenido;
-
-	public ListarLugaresTableModel(List<Lugar> contenidoInicial) {
+	public ListarLugaresTableModel(List<?> contenidoInicial) {
 
 		contenido = contenidoInicial;
 	}
@@ -50,7 +52,7 @@ public class ListarLugaresTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Lugar u = contenido.get(rowIndex);
+		Lugar u = (Lugar) contenido.get(rowIndex);
 
 		Object result = null;
 
@@ -74,9 +76,9 @@ public class ListarLugaresTableModel extends AbstractTableModel {
 
 	}
 	
-	public List<Lugar> getContenido() { 
+	public List<?> getContenido() { 
 		
-		return contenido; 
+		return (List<Lugar>) contenido; 
 		
 	}
 

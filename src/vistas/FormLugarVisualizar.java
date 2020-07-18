@@ -12,18 +12,18 @@ import javax.swing.JLabel;
 
 import utilidades.OperacionesImagenes;
 
-public class FormVisualizarLugar extends AbstractFormLugar {
+public class FormLugarVisualizar extends AbstractFormLugar {
 
 	private JButton botonVolver;
 	private JLabel vistaPrevia;
 	private BufferedImage imagenEstadio;
 
-	public FormVisualizarLugar(PanelManager panelManager) {
+	public FormLugarVisualizar(PanelManager panelManager) {
 		super(panelManager);
 	}
 
-	public void armarFormVisualizarLugar() {
-		
+	public void armarFormLugarVisualizar() {
+
 		this.tCapacidad.setEditable(false);
 		this.tDireccion.setEditable(false);
 		this.tNombreEstadio.setEditable(false);
@@ -38,15 +38,15 @@ public class FormVisualizarLugar extends AbstractFormLugar {
 	public void actionPerformed(ActionEvent accion) {
 
 		if (accion.getSource() == botonVolver) {
-			
-			panelManager.mostrarFormHome(null);
+
+			panelManager.mostrarFormHomeAdmin(null);
 
 		}
 
 	}
-	
-	public void setimagenEstadio() { 
-		
+
+	public void setimagenEstadio() {
+
 		try {
 			BufferedImage imagenEstadio = ImageIO
 					.read(new FileInputStream(OperacionesImagenes.DIR_IMG_LUGAR + "/" + lugar.getFotoLugar()));
@@ -55,7 +55,7 @@ public class FormVisualizarLugar extends AbstractFormLugar {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

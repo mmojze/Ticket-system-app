@@ -1,7 +1,6 @@
 package vistas;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -13,32 +12,37 @@ import entidades.Lugar;
 import exceptions.ArchivoNoExisteException;
 import utilidades.OperacionesImagenes;
 
-public class FormModificarLugar extends AbstractFormLugar {
+public class FormLugarCrear extends AbstractFormLugar {
 
 	private JButton botonCargarImagen;
 	private JButton botonBorrarImagen;
+	private String nombreImagen;
+	private JButton botonVolver;
 
-	
-	public FormModificarLugar(PanelManager panelManager) {
+	public FormLugarCrear(PanelManager panelManager) {
 		super(panelManager);
+
 	}
-	
-	public void armarFormModificarLugar() { 
-		
+
+	public void armarFormLugarCrear() {
+
 		botonCargarImagen = new JButton("Cargar imagen");
 		botonCargarImagen.addActionListener(this);
 
 		botonBorrarImagen = new JButton("Borrar imagen");
 		botonBorrarImagen.addActionListener(this);
-		
+
+		botonVolver = new JButton("Volver");
+		botonVolver.addActionListener(this);
+
 		this.add(botonCargarImagen);
 		this.add(botonBorrarImagen);
-		
+		this.add(botonVolver);
+
 	}
-	
-	@Override
+
 	public void actionPerformed(ActionEvent accion) {
-		
+
 		if (accion.getSource() == botonCargarImagen) {
 
 			File archivo = OperacionesImagenes.cargarImagen(OperacionesImagenes.DIR_IMG_LUGAR);
@@ -58,15 +62,13 @@ public class FormModificarLugar extends AbstractFormLugar {
 			} else {
 
 				int capacidad = Integer.parseInt(tCapacidad.getText());
+				Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen);
+				nuevoLugar.crearLugar(nuevoLugar);
 
-				Lugar lugarModificado = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen, this.lugar.getIdLugar());
+				JOptionPane.showMessageDialog(popupEstadio, "Lugar creado con éxito");
 
-				lugarModificado.modificarLugar(lugarModificado);
-				
-				JOptionPane.showMessageDialog(popupEstadio, "Lugar modificado con éxito");
-				
-				panelManager.mostrarFormHome(null);
-				
+				panelManager.mostrarFormHomeAdmin(null);
+
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {
@@ -80,11 +82,12 @@ public class FormModificarLugar extends AbstractFormLugar {
 			this.nombreImagen = null;
 			JOptionPane.showMessageDialog(popupEstadio, "Imagen borrada");
 
+		} else if (accion.getSource() == botonVolver) {
+
+			panelManager.mostrarFormHomeAdmin(null);
+
 		}
-		
+
 	}
-	
-	
+
 }
-
-

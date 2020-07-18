@@ -10,22 +10,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import entidades.Lugar;
+import entidades.Usuario;
 
-public class FormHome extends JPanel implements ActionListener {
+public class FormHomeAdmin extends AbstractFormHome {
 
 	private JButton botonCrearLugar, botonAdministrarLugares, botonListarLugares;
 
-	private PanelManager panelManager;
+	public FormHomeAdmin(PanelManager panelManager) {
 
-	public FormHome(PanelManager m) {
-
-		this.panelManager = m;
+		super(panelManager);
 
 	}
 
-	public void armarFormHome() {
-
-		this.setLayout((new BoxLayout(this, BoxLayout.Y_AXIS)));
+	public void armarFormHomeAdmin() {
 
 		botonCrearLugar = new JButton("Crear lugar");
 		botonAdministrarLugares = new JButton("Administrar lugares");
@@ -39,27 +36,25 @@ public class FormHome extends JPanel implements ActionListener {
 		botonAdministrarLugares.addActionListener(this);
 		botonListarLugares.addActionListener(this);
 
-		setVisible(true);
-
 	}
 
 	public void actionPerformed(ActionEvent accion) {
 
 		if (accion.getSource() == botonCrearLugar) {
 
-			panelManager.mostrarFormCrearLugar();
+			panelManager.mostrarFormLugarCrear();
 
 		} else if (accion.getSource() == botonAdministrarLugares) {
-			
+
 			Lugar lugar = new Lugar();
 			List<Lugar> lugaresListados = lugar.listarLugares();
-			panelManager.mostrarFormAdministrarLugar(lugaresListados);
+			panelManager.mostrarFormLugarAdministrar(lugaresListados);
 
 		} else if (accion.getSource() == botonListarLugares) {
 
 			Lugar lugar = new Lugar();
 			List<Lugar> lugaresListados = lugar.listarLugares();
-			panelManager.mostrarFormListarLugares(lugaresListados);
+			panelManager.mostrarFormLugarListar(lugaresListados);
 
 		}
 

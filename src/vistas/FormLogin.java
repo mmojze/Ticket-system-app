@@ -85,18 +85,16 @@ public class FormLogin extends JPanel implements ActionListener {
 			try {
 
 				Usuario usuarioLogeado = new Usuario();
-				
 				usuarioLogeado = usuarioLogeado.logearse(tUsuario.getText(), contraseña);
-
 				String tipoUsuario = usuarioLogeado.getTipoUsuario();
 
 				switch (tipoUsuario) {
-
 				case "Administrador":
-					panelManager.mostrarFormHome(usuarioLogeado);
+					panelManager.mostrarFormHomeAdmin(usuarioLogeado);
 					break;
 				case "Vendedor":
-					JOptionPane.showMessageDialog(popupLogin, "En construcción");
+					panelManager.mostrarFormHomeVendedor();
+					break;
 				}
 
 			} catch (NoSeEncontroUsuarioException e) {

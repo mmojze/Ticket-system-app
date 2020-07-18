@@ -30,7 +30,7 @@ public class Ubicacion {
 		this.lugar = lugar;
 
 	}
-	
+
 	public Ubicacion(Lugar lugar, String nombre, int capacidadUbicacion, String fotoUbicacion) {
 
 		this.nombre = nombre;
@@ -62,7 +62,7 @@ public class Ubicacion {
 		return this.capacidadUbicacion;
 
 	}
-	
+
 	public String getFotoUbicacion() {
 
 		return this.fotoUbicacion;
@@ -92,7 +92,7 @@ public class Ubicacion {
 		this.capacidadUbicacion = capacidadUbicacion;
 
 	}
-	
+
 	public void setFotoUbicacion(String archivofoto) {
 
 		this.fotoUbicacion = archivofoto;
