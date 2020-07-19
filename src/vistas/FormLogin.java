@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import entidades.Usuario;
+import exceptions.ErrorConexionBDException;
 import exceptions.NoSeEncontroUsuarioException;
 
 import javax.swing.*;
@@ -100,6 +101,8 @@ public class FormLogin extends JPanel implements ActionListener {
 			} catch (NoSeEncontroUsuarioException e) {
 				JOptionPane.showMessageDialog(popupLogin,
 						"El usuario no existe o la contraseña es incorrecta, por favor revise los datos");
+			} catch (ErrorConexionBDException e) {
+				JOptionPane.showMessageDialog(popupLogin, "Hubo un error de conexión a la base de datos");
 			}
 
 		}

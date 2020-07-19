@@ -4,7 +4,10 @@ import java.util.List;
 
 import dao.UsuarioDAO;
 import dao.UsuarioDAOH2;
+import exceptions.DAOErrorDeCierreBDException;
+import exceptions.DAOErrorDeConexionBDException;
 import exceptions.DAONoHayResultadosException;
+import exceptions.ErrorConexionBDException;
 import exceptions.NoSeEncontroUsuarioException;
 
 public class Usuario {
@@ -73,18 +76,21 @@ public class Usuario {
 
 	}
 
-	public Usuario logearse(String usuario, String contraseña) throws NoSeEncontroUsuarioException {
+	public Usuario logearse(String usuario, String contraseña) throws NoSeEncontroUsuarioException, ErrorConexionBDException {
 
 		UsuarioDAO usuarioLogin = new UsuarioDAOH2();
-
+		Usuario usuarioLogeado = new Usuario();
 		try {
 
-			Usuario usuarioLogeado = usuarioLogin.consultarUsuario(usuario, contraseña);
-			return usuarioLogeado;
+			usuarioLogeado = usuarioLogin.consultarUsuario(usuario, contraseña);
 
-		} catch (DAONoHayResultadosException e) {
+		} catch (DAONoHayResultadosException a) {
 			throw new NoSeEncontroUsuarioException();
+		} catch (DAOErrorDeConexionBDException | DAOErrorDeCierreBDException b) {
+			throw new ErrorConexionBDException();
 		}
+
+		return usuarioLogeado;
 
 	}
 
