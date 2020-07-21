@@ -1,15 +1,5 @@
 package entidades;
 
-import java.util.List;
-
-import dao.UsuarioDAO;
-import dao.UsuarioDAOH2;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAONoHayResultadosException;
-import exceptions.ErrorConexionBDException;
-import exceptions.NoSeEncontroUsuarioException;
-
 public class Usuario {
 
 	private String nombre;
@@ -73,24 +63,6 @@ public class Usuario {
 	public void setUsuario(String usuario) {
 
 		this.usuario = usuario;
-
-	}
-
-	public Usuario logearse(String usuario, String contraseña) throws NoSeEncontroUsuarioException, ErrorConexionBDException {
-
-		UsuarioDAO usuarioLogin = new UsuarioDAOH2();
-		Usuario usuarioLogeado = new Usuario();
-		try {
-
-			usuarioLogeado = usuarioLogin.consultarUsuario(usuario, contraseña);
-
-		} catch (DAONoHayResultadosException a) {
-			throw new NoSeEncontroUsuarioException();
-		} catch (DAOErrorDeConexionBDException | DAOErrorDeCierreBDException b) {
-			throw new ErrorConexionBDException();
-		}
-
-		return usuarioLogeado;
 
 	}
 

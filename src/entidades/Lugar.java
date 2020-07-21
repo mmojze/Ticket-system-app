@@ -1,10 +1,5 @@
 package entidades;
 
-import java.util.List;
-
-import dao.LugarDAO;
-import dao.LugarDAOH2;
-
 public class Lugar {
 
 	private int idLugar;
@@ -108,31 +103,4 @@ public class Lugar {
 
 	}
 
-	public void crearLugar(Lugar lugar) {
-
-		LugarDAO lugarDAO = new LugarDAOH2();
-		int idLugar = lugarDAO.crearLugar(lugar);
-
-	}
-
-	public List<Lugar> listarLugares() {
-
-		LugarDAO lugarDAO = new LugarDAOH2();
-		List<Lugar> lugaresListados = lugarDAO.listarLugares();
-		return lugaresListados;
-
-	}
-
-	public void borrarLugar(Lugar lugar) {
-
-		LugarDAO lugarDAO = new LugarDAOH2();
-		lugarDAO.eliminarLugar(lugar.getIdLugar());
-	}
-
-	public void modificarLugar(Lugar lugar) {
-
-		LugarDAO lugarDAO = new LugarDAOH2();
-		lugarDAO.modificarLugar(lugar);
-
-	}
 }

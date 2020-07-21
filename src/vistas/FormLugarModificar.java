@@ -11,6 +11,10 @@ import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
 import exceptions.ArchivoNoExisteException;
+import exceptions.ServiceErrorDeConexionBDException;
+import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceNoHayDatosException;
+import servicios.LugarService;
 import utilidades.OperacionesImagenes;
 
 public class FormLugarModificar extends AbstractFormLugar {
@@ -60,7 +64,17 @@ public class FormLugarModificar extends AbstractFormLugar {
 				Lugar lugarModificado = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad,
 						nombreImagen, this.lugar.getIdLugar());
 
-				lugarModificado.modificarLugar(lugarModificado);
+				LugarService servicio = new LugarService();
+
+				try {
+					servicio.modificarLugar(lugarModificado);
+				} catch (ServiceErrorDeConexionBDException e) {
+					JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (ServiceErrorEjecucionSentenciaException e) {
+					JOptionPane.showMessageDialog(this, "Error", "No se pudo modificar el lugar",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
 				JOptionPane.showMessageDialog(popupEstadio, "Lugar modificado con éxito");
 

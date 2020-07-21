@@ -1,24 +1,14 @@
 package vistas;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import dao.LugarDAO;
-import dao.LugarDAOH2;
 import entidades.Lugar;
-import exceptions.ArchivoNoExisteException;
-import utilidades.OperacionesImagenes;
 
 public abstract class AbstractFormLugar extends JPanel implements ActionListener {
 
@@ -74,7 +64,7 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 	public abstract void actionPerformed(ActionEvent accion);
 
 	public void completarCamposLugar() {
-
+		
 		String capacidad = Integer.toString(this.lugar.getCapacidadTotal());
 		tNombreEstadio.setText(this.lugar.getNombre());
 		tDireccion.setText(this.lugar.getDireccion());

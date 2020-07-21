@@ -10,6 +10,10 @@ import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
 import exceptions.ArchivoNoExisteException;
+import exceptions.ServiceErrorDeConexionBDException;
+import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceNoHayDatosException;
+import servicios.LugarService;
 import utilidades.OperacionesImagenes;
 
 public class FormLugarCrear extends AbstractFormLugar {
@@ -63,7 +67,19 @@ public class FormLugarCrear extends AbstractFormLugar {
 
 				int capacidad = Integer.parseInt(tCapacidad.getText());
 				Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen);
-				nuevoLugar.crearLugar(nuevoLugar);
+				LugarService servicio = new LugarService();
+				
+				try {
+					servicio.crearLugar(nuevoLugar);
+				} catch (ServiceErrorDeConexionBDException e) {
+					JOptionPane.showMessageDialog(this, "Error",
+							"Hubo un error de conexión a la base de datos"
+							, JOptionPane.ERROR_MESSAGE);
+				} catch (ServiceErrorEjecucionSentenciaException e) {
+					JOptionPane.showMessageDialog(this, "Error",
+							"No se pudo crear el lugar"
+							, JOptionPane.ERROR_MESSAGE);
+				}
 
 				JOptionPane.showMessageDialog(popupEstadio, "Lugar creado con éxito");
 

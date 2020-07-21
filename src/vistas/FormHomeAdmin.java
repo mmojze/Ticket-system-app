@@ -7,10 +7,15 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entidades.Lugar;
 import entidades.Usuario;
+import exceptions.ServiceErrorDeConexionBDException;
+import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceNoHayDatosException;
+import servicios.LugarService;
 
 public class FormHomeAdmin extends AbstractFormHome {
 
@@ -46,15 +51,33 @@ public class FormHomeAdmin extends AbstractFormHome {
 
 		} else if (accion.getSource() == botonAdministrarLugares) {
 
-			Lugar lugar = new Lugar();
-			List<Lugar> lugaresListados = lugar.listarLugares();
-			panelManager.mostrarFormLugarAdministrar(lugaresListados);
+			LugarService servicio = new LugarService();
+			List<Lugar> lugaresListados;
+
+			try {
+				lugaresListados = servicio.listarLugares();
+				panelManager.mostrarFormLugarAdministrar(lugaresListados);
+			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
+				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (ServiceNoHayDatosException e) {
+				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
+			}
 
 		} else if (accion.getSource() == botonListarLugares) {
 
-			Lugar lugar = new Lugar();
-			List<Lugar> lugaresListados = lugar.listarLugares();
-			panelManager.mostrarFormLugarListar(lugaresListados);
+			LugarService servicio = new LugarService();
+			List<Lugar> lugaresListados;
+
+			try {
+				lugaresListados = servicio.listarLugares();
+				panelManager.mostrarFormLugarListar(lugaresListados);
+			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
+				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (ServiceNoHayDatosException e) {
+				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
+			}
 
 		}
 

@@ -1,70 +1,43 @@
 package vistas;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import entidades.Lugar;
-import entidades.Ubicacion;
+import exceptions.ServiceErrorDeConexionBDException;
+import exceptions.ServiceErrorEjecucionSentenciaException;
+import servicios.LugarService;
 import tablemodels.LugarTableModel;
 
-public class FormLugarAdministrar extends JPanel implements ActionListener {
+public class FormLugarAdministrar extends AbstractFormTable {
 
-	protected PanelManager panelManager;
-	protected LugarTableModel LugarTableModel;
-	private List<Lugar> lugares;
-	private JTable tablaLugares;
-	private JScrollPane scrollPaneParaTabla;
-	private JButton botonBorrar, botonModificar, botonVisualizar, botonVolver;
-	private JFrame popupLugar;
+	private LugarTableModel LugarTableModel;
 
 	public FormLugarAdministrar(PanelManager panelManager) {
 
-		this.panelManager = panelManager;
-		lugares = new ArrayList<>();
+		super(panelManager);
 
 	}
 
 	public void armarFormLugarAdministrar() {
 
-		GridLayout grid = new GridLayout(5, 6, 5, 5);
-		this.setLayout(grid);
-		this.setSize(1000, 1000);
+		LugarTableModel = new LugarTableModel(contenidoTable);
+		tabla = new JTable(LugarTableModel);
+		scrollTabla = new JScrollPane(tabla);
+		this.add(scrollTabla);
 
-		LugarTableModel = new LugarTableModel(lugares);
-		tablaLugares = new JTable(LugarTableModel);
-		scrollPaneParaTabla = new JScrollPane(tablaLugares);
-		this.add(scrollPaneParaTabla);
-
-		botonBorrar = new JButton("Borrar");
-		botonModificar = new JButton("Modificar");
-		botonVisualizar = new JButton("Visualizar");
-		botonVolver = new JButton("Volver");
-
-		botonBorrar.addActionListener(this);
-		botonModificar.addActionListener(this);
-		botonVisualizar.addActionListener(this);
-		botonVolver.addActionListener(this);
-
-		this.add(botonBorrar);
-		this.add(botonModificar);
-		this.add(botonVisualizar);
-		this.add(botonVolver);
 	}
 
 	public void setLugares(List<Lugar> lugares) {
 
 		LugarTableModel.setContenido(lugares);
 		LugarTableModel.fireTableDataChanged();
+		addBotonesAdministrar();
+		addBotonVolver();
 
 	}
 
@@ -72,23 +45,29 @@ public class FormLugarAdministrar extends JPanel implements ActionListener {
 
 		if (accion.getSource() == botonBorrar) {
 
-			int filaSeleccionada = this.tablaLugares.getSelectedRow();
+			int filaSeleccionada = this.tabla.getSelectedRow();
 			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
-			System.out.println(lugar.getIdLugar());
-			lugar.borrarLugar(lugar);
-			LugarTableModel.fireTableDataChanged();
 
-			JOptionPane.showMessageDialog(popupLugar, "El lugar se ha borrado correctamente");
+			try {
+				LugarService servicio = new LugarService();
+				servicio.borrarLugar(lugar);
+				LugarTableModel.fireTableDataChanged();
+			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
+				JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			JOptionPane.showMessageDialog(this, "El lugar se ha borrado correctamente");
 
 		} else if (accion.getSource() == botonModificar) {
 
-			int filaSeleccionada = this.tablaLugares.getSelectedRow();
+			int filaSeleccionada = this.tabla.getSelectedRow();
 			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
 			panelManager.mostrarFormModificarLugar(lugar);
 
 		} else if (accion.getSource() == botonVisualizar) {
 
-			int filaSeleccionada = this.tablaLugares.getSelectedRow();
+			int filaSeleccionada = this.tabla.getSelectedRow();
 			Lugar lugar = this.LugarTableModel.getContenido().get(filaSeleccionada);
 			panelManager.mostrarFormLugarVisualizar(lugar);
 

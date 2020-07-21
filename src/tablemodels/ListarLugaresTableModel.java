@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import entidades.Lugar;
 
-public class ListarLugaresTableModel extends AbstractTableModel {
+public class ListarLugaresTableModel extends AbstractTemplateTableModel {
 
 	private static final int COLUMNA_NOMBRE = 0;
 	private static final int COLUMNA_CAPACIDAD = 1;
@@ -14,39 +14,30 @@ public class ListarLugaresTableModel extends AbstractTableModel {
 	private static final int COLUMNA_IMAGEN = 3;
 
 	private String[] nombresColumnas = { "Nombre de lugar", "Capacidad total", "Direccion", "Nombre de imagen" };
-
 	private Class[] tiposColumnas = { String.class, int.class, String.class, String.class };
-	
-	private Lugar[] asd = {};
-	
 	private List<?> contenido;
-
+	
 	public ListarLugaresTableModel(List<?> contenidoInicial) {
 
-		contenido = contenidoInicial;
+		this.contenido = contenidoInicial;
+		
 	}
 	
 	public int getColumnCount() { 
 		
-		return nombresColumnas.length;
+		return super.getColumnCount(nombresColumnas);
 		
 	}
 	
 	public int getRowCount() { 
 		
-	    int result = 0;
-	   
-	      if(contenido != null) {
-	        result = contenido.size();
-	      }
-	    
-	    return result;
+	    return super.getRowCount(this.contenido);
 		
 	}
 	
 	public String getColumnName(int col) { 
 
-		return nombresColumnas[col];
+		return super.getColumnName(this.nombresColumnas, col);
 		
 	}
 
@@ -83,7 +74,7 @@ public class ListarLugaresTableModel extends AbstractTableModel {
 	}
 
 
-	public void setContenido (List<Lugar> contenido) { 
+	public void setContenido(List<?> contenido) { 
 		
 		this.contenido = contenido; 
 		
