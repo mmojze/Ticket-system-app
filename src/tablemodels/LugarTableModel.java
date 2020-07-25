@@ -2,8 +2,6 @@ package tablemodels;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import entidades.Lugar;
 
 public class LugarTableModel extends AbstractTemplateTableModel {
@@ -12,10 +10,11 @@ public class LugarTableModel extends AbstractTemplateTableModel {
 
 	private String[] nombresColumnas = { "Nombre de ubicación" };
 	private Class[] tiposColumnas = { String.class };
-	private List<?> contenido;
+	private List<Lugar> contenido;
+	
 
 	public LugarTableModel(List<?> contenidoInicial) {
-		contenido = contenidoInicial;
+		contenido = (List<Lugar>) contenidoInicial;
 	}
 
 	public int getColumnCount() {

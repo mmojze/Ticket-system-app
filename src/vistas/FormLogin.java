@@ -95,7 +95,7 @@ public class FormLogin extends JPanel implements ActionListener {
 				String tipoUsuario = usuarioLogeado.getTipoUsuario();
 				switch (tipoUsuario) {
 				case "Administrador":
-					panelManager.mostrarFormHomeAdmin(usuarioLogeado);
+					panelManager.mostrarFormHomeAdmin();
 					break;
 				case "Vendedor":
 					panelManager.mostrarFormHomeVendedor();

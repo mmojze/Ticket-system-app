@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import utilidades.OperacionesImagenes;
 
@@ -39,7 +40,7 @@ public class FormLugarVisualizar extends AbstractFormLugar {
 
 		if (accion.getSource() == botonVolver) {
 
-			panelManager.mostrarFormHomeAdmin(null);
+			panelManager.mostrarFormHomeAdmin();
 
 		}
 
@@ -53,7 +54,8 @@ public class FormLugarVisualizar extends AbstractFormLugar {
 			JLabel vistaPrevia = new JLabel(new ImageIcon(imagenEstadio));
 			this.add(vistaPrevia);
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Error", "No se encontró la imagen",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

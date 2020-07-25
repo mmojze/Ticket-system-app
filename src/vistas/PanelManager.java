@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import entidades.Lugar;
+import entidades.Ubicacion;
 import entidades.Usuario;
 
 public class PanelManager {
@@ -19,6 +20,9 @@ public class PanelManager {
 	private FormLugarListar FormLugarListar;
 	private FormLugarCrear FormLugarCrear;
 	private FormLugarAdministrar FormLugarAdministrar;
+	private FormUbicacionABM FormUbicacionABM;
+	private FormUbicacionListar FormUbicacionListar;
+	private FormUbicacionVisualizar FormUbicacionVisualizar;
 
 	public PanelManager() {
 
@@ -52,6 +56,16 @@ public class PanelManager {
 
 		FormLugarListar = new FormLugarListar(this);
 		FormLugarListar.armarFormLugarListar();
+
+		FormUbicacionABM = new FormUbicacionABM(this);
+		FormUbicacionABM.armarFormUbicacionABM();
+
+		FormUbicacionListar = new FormUbicacionListar(this);
+		FormUbicacionListar.armarUbicacionListar();
+
+		FormUbicacionVisualizar = new FormUbicacionVisualizar(this);
+		FormUbicacionVisualizar.armarFormUbicacionVisualizar();
+
 	}
 
 	public void showFrame() {
@@ -65,7 +79,7 @@ public class PanelManager {
 		frame.getContentPane().repaint();
 	}
 
-	public void mostrarFormHomeAdmin(Usuario user) {
+	public void mostrarFormHomeAdmin() {
 
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormHomeAdmin);
@@ -94,6 +108,7 @@ public class PanelManager {
 	public void mostrarFormModificarLugar(Lugar lugar) {
 
 		FormLugarModificar.setLugar(lugar);
+		FormLugarModificar.setCapacidadOriginal(lugar.getCapacidadTotal());
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormLugarModificar);
 		frame.getContentPane().validate();
@@ -125,6 +140,37 @@ public class PanelManager {
 
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(FormHomeVendedor);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+
+	}
+
+	public void mostrarFormUbicacionABM(Lugar lugar) {
+		
+		FormUbicacionABM.setLugar(lugar);
+		FormUbicacionABM.setTotalCapacidadUbicaciones(lugar.getCapacidadUtilizada());
+		FormUbicacionABM.getUbicacionTableModel().setContenido(lugar.getUbicacionesLugar());
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(FormUbicacionABM);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+
+	}
+
+	public void mostrarFormUbicacionVisualizar(Ubicacion ubicacion) {
+		FormUbicacionVisualizar.completarCamposUbicacion(ubicacion);
+		FormUbicacionVisualizar.setImagenUbicacion();
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(FormUbicacionVisualizar);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+
+	}
+
+	public void mostrarFormUbicacionListar(List<Ubicacion> ubicaciones) {
+		FormUbicacionListar.getUbicacionTableModel().setContenido(ubicaciones);
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(FormUbicacionListar);
 		frame.getContentPane().validate();
 		frame.getContentPane().repaint();
 

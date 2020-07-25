@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,11 +27,9 @@ public abstract class AbstractFormTable extends JPanel implements ActionListener
 	}
 
 	public void armarFormTable() {
-
-		GridLayout grid = new GridLayout(5, 6, 5, 5);
-		this.setLayout(grid);
-		this.setSize(1000, 1000);
-
+		
+		this.setLayout((new BoxLayout(this, BoxLayout.Y_AXIS)));
+		
 		botonBorrar = new JButton("Borrar");
 		botonModificar = new JButton("Modificar");
 		botonVisualizar = new JButton("Visualizar");

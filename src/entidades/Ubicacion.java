@@ -7,6 +7,11 @@ public class Ubicacion {
 	private Lugar lugar;
 	private int capacidadUbicacion;
 	private String fotoUbicacion;
+	private int precioUbicacion;
+
+	public Ubicacion() {
+
+	}
 
 	public Ubicacion(String nombre, Lugar lugar, int capacidadUbicacion) {
 
@@ -20,6 +25,23 @@ public class Ubicacion {
 
 		this.nombre = nombre;
 		this.capacidadUbicacion = capacidadUbicacion;
+
+	}
+
+	public Ubicacion(String nombre, int capacidadUbicacion, String fotoUbicacion) {
+
+		this.nombre = nombre;
+		this.capacidadUbicacion = capacidadUbicacion;
+		this.fotoUbicacion = fotoUbicacion;
+
+	}
+
+	public Ubicacion(String nombre, int capacidadUbicacion, String fotoUbicacion, int idUbicacion) {
+
+		this.nombre = nombre;
+		this.capacidadUbicacion = capacidadUbicacion;
+		this.fotoUbicacion = fotoUbicacion;
+		this.idUbicacion = idUbicacion;
 
 	}
 
@@ -37,6 +59,31 @@ public class Ubicacion {
 		this.capacidadUbicacion = capacidadUbicacion;
 		this.lugar = lugar;
 		this.fotoUbicacion = fotoUbicacion;
+	}
+
+	public Ubicacion(Lugar lugar, String nombre, int capacidadUbicacion, String fotoUbicacion, int idUbicacion) {
+
+		this.nombre = nombre;
+		this.capacidadUbicacion = capacidadUbicacion;
+		this.lugar = lugar;
+		this.fotoUbicacion = fotoUbicacion;
+		this.idUbicacion = idUbicacion;
+	}
+
+	public int getCapacidadUbicacion() {
+		return capacidadUbicacion;
+	}
+
+	public void setCapacidadUbicacion(int capacidadUbicacion) {
+		this.capacidadUbicacion = capacidadUbicacion;
+	}
+
+	public int getPrecioUbicacion() {
+		return precioUbicacion;
+	}
+
+	public void setPrecioUbicacion(int precioUbicacion) {
+		this.precioUbicacion = precioUbicacion;
 	}
 
 	public int getIdUbicacion() {
@@ -69,7 +116,7 @@ public class Ubicacion {
 
 	}
 
-	public void setId(int id) {
+	public void setIdUbicacion(int id) {
 
 		this.idUbicacion = id;
 

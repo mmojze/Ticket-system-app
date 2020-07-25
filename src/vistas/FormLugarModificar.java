@@ -3,6 +3,7 @@ package vistas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -10,20 +11,31 @@ import javax.swing.JOptionPane;
 import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
+import entidades.Ubicacion;
 import exceptions.ArchivoNoExisteException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceNoHayDatosException;
 import servicios.LugarService;
+import servicios.UbicacionService;
 import utilidades.OperacionesImagenes;
 
 public class FormLugarModificar extends AbstractFormLugar {
 
 	private JButton botonCargarImagen;
 	private JButton botonBorrarImagen;
+	private int capacidadOriginal;
 
 	public FormLugarModificar(PanelManager panelManager) {
 		super(panelManager);
+	}
+
+	public int getCapacidadOriginal() {
+		return capacidadOriginal;
+	}
+
+	public void setCapacidadOriginal(int capacidadOriginal) {
+		this.capacidadOriginal = capacidadOriginal;
 	}
 
 	public void armarFormLugarModificar() {
@@ -68,17 +80,22 @@ public class FormLugarModificar extends AbstractFormLugar {
 
 				try {
 					servicio.modificarLugar(lugarModificado);
+					JOptionPane.showMessageDialog(popupEstadio, "Lugar modificado con éxito");
+					UbicacionService servicioUbicacion = new UbicacionService();
+					List<Ubicacion> ubicaciones = servicioUbicacion.listarUbicacionesPorLugar(lugarModificado);
+					lugarModificado.setUbicacionesDeLugar(ubicaciones);
+					lugarModificado.setCapacidadUtilizada(this.capacidadOriginal);
+					panelManager.mostrarFormUbicacionABM(lugarModificado);
 				} catch (ServiceErrorDeConexionBDException e) {
 					JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (ServiceErrorEjecucionSentenciaException e) {
 					JOptionPane.showMessageDialog(this, "Error", "No se pudo modificar el lugar",
 							JOptionPane.ERROR_MESSAGE);
+				} catch (ServiceNoHayDatosException e) {
+					JOptionPane.showMessageDialog(this, "Error", "No hay ubicaciones para éste lugar",
+							JOptionPane.ERROR_MESSAGE);
 				}
-
-				JOptionPane.showMessageDialog(popupEstadio, "Lugar modificado con éxito");
-
-				panelManager.mostrarFormHomeAdmin(null);
 
 			}
 

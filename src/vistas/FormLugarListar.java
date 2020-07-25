@@ -6,16 +6,23 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import entidades.Lugar;
+import entidades.Ubicacion;
+import exceptions.ServiceErrorDeConexionBDException;
+import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceNoHayDatosException;
+import servicios.UbicacionService;
 import tablemodels.ListarLugaresTableModel;
 
 public class FormLugarListar extends AbstractFormTable {
 
 	private ListarLugaresTableModel ListarLugaresTableModel;
+	private JButton botonListarUbicaciones;
 
 	public FormLugarListar(PanelManager panelManager) {
 
@@ -31,6 +38,10 @@ public class FormLugarListar extends AbstractFormTable {
 		this.add(scrollTabla);
 		addBotonVolver();
 
+		botonListarUbicaciones = new JButton("Listar ubicaciones");
+		this.add(botonListarUbicaciones);
+		botonListarUbicaciones.addActionListener(this);
+
 	}
 
 	public void setLugares(List<Lugar> lugaresObtenidos) {
@@ -44,8 +55,26 @@ public class FormLugarListar extends AbstractFormTable {
 
 		if (accion.getSource() == botonVolver) {
 
-			panelManager.mostrarFormHomeAdmin(null);
+			panelManager.mostrarFormHomeAdmin();
 
+		} else if (accion.getSource() == botonListarUbicaciones) {
+			
+			int filaSeleccionada = this.tabla.getSelectedRow();
+			Lugar lugar = this.ListarLugaresTableModel.getContenido().get(filaSeleccionada);
+			UbicacionService servicio = new UbicacionService();
+			
+			try {
+				List<Ubicacion> ubicaciones = servicio.listarUbicacionesPorLugar(lugar);
+				panelManager.mostrarFormUbicacionListar(ubicaciones);
+			} catch (ServiceErrorDeConexionBDException|ServiceErrorEjecucionSentenciaException e) {
+				JOptionPane.showMessageDialog(this, "Error", "No se pudo conectar a la BD",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (ServiceNoHayDatosException e) {
+				JOptionPane.showMessageDialog(this, "Error", "No hay datos de ubicación para este lugar",
+						JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
 		}
 
 	}

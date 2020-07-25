@@ -6,6 +6,9 @@ import javax.swing.table.AbstractTableModel;
 
 public abstract class AbstractTemplateTableModel extends AbstractTableModel {
 	
+	protected String[] nombresColumnas;
+	protected Class[] tiposColumnas;
+	
 	public String getColumnName(String[] columnas, int col) {
 
 		return columnas[col];

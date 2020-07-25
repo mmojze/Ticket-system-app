@@ -2,8 +2,6 @@ package tablemodels;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import entidades.Lugar;
 
 public class ListarLugaresTableModel extends AbstractTemplateTableModel {
@@ -15,36 +13,35 @@ public class ListarLugaresTableModel extends AbstractTemplateTableModel {
 
 	private String[] nombresColumnas = { "Nombre de lugar", "Capacidad total", "Direccion", "Nombre de imagen" };
 	private Class[] tiposColumnas = { String.class, int.class, String.class, String.class };
-	private List<?> contenido;
-	
+	private List<Lugar> contenido;
+
 	public ListarLugaresTableModel(List<?> contenidoInicial) {
 
-		this.contenido = contenidoInicial;
-		
+		this.contenido = (List<Lugar>) contenidoInicial;
+
 	}
-	
-	public int getColumnCount() { 
-		
+
+	public int getColumnCount() {
+
 		return super.getColumnCount(nombresColumnas);
-		
+
 	}
-	
-	public int getRowCount() { 
-		
-	    return super.getRowCount(this.contenido);
-		
+
+	public int getRowCount() {
+
+		return super.getRowCount(this.contenido);
+
 	}
-	
-	public String getColumnName(int col) { 
+
+	public String getColumnName(int col) {
 
 		return super.getColumnName(this.nombresColumnas, col);
-		
+
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
-		Lugar u = (Lugar) contenido.get(rowIndex);
-
+		Lugar u = contenido.get(rowIndex);
 		Object result = null;
 
 		switch (columnIndex) {
@@ -66,18 +63,17 @@ public class ListarLugaresTableModel extends AbstractTemplateTableModel {
 		return result;
 
 	}
-	
-	public List<?> getContenido() { 
-		
-		return (List<Lugar>) contenido; 
-		
+
+	public List<Lugar> getContenido() {
+
+		return (List<Lugar>) contenido;
+
 	}
 
+	public void setContenido(List<?> contenido) {
 
-	public void setContenido(List<?> contenido) { 
-		
-		this.contenido = contenido; 
-		
+		this.contenido = (List<Lugar>) contenido;
+
 	}
 
 }

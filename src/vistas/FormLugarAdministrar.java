@@ -3,6 +3,7 @@ package vistas;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,15 +30,17 @@ public class FormLugarAdministrar extends AbstractFormTable {
 		tabla = new JTable(LugarTableModel);
 		scrollTabla = new JScrollPane(tabla);
 		this.add(scrollTabla);
-
+		
+		addBotonesAdministrar();
+		addBotonVolver();
+		
 	}
 
 	public void setLugares(List<Lugar> lugares) {
 
 		LugarTableModel.setContenido(lugares);
 		LugarTableModel.fireTableDataChanged();
-		addBotonesAdministrar();
-		addBotonVolver();
+
 
 	}
 
@@ -73,8 +76,10 @@ public class FormLugarAdministrar extends AbstractFormTable {
 
 		} else if (accion.getSource() == botonVolver) {
 
-			panelManager.mostrarFormHomeAdmin(null);
+			panelManager.mostrarFormHomeAdmin();
 
+		} else if (accion.getSource() == botonVolver) {
+			
 		}
 
 	}

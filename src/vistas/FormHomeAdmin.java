@@ -32,14 +32,16 @@ public class FormHomeAdmin extends AbstractFormHome {
 		botonCrearLugar = new JButton("Crear lugar");
 		botonAdministrarLugares = new JButton("Administrar lugares");
 		botonListarLugares = new JButton("Listar lugares");
-
+		
 		this.add(botonCrearLugar);
 		this.add(botonAdministrarLugares);
 		this.add(botonListarLugares);
 
+
 		botonCrearLugar.addActionListener(this);
 		botonAdministrarLugares.addActionListener(this);
 		botonListarLugares.addActionListener(this);
+
 
 	}
 

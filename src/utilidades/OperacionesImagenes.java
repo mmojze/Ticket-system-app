@@ -14,6 +14,7 @@ public class OperacionesImagenes {
 
 	private static final String DIR_FILEPATH = System.getProperty("user.dir") + "\\img";
 	public static final String DIR_IMG_LUGAR = System.getProperty("user.dir") + "\\img-lugar";
+	public static final String DIR_IMG_UBICACION = System.getProperty("user.dir") + "\\img-ubicacion";
 
 	public static void copiarArchivo(String origen, String destino) throws ArchivoNoExisteException {
 
