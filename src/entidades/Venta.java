@@ -7,9 +7,8 @@ public class Venta {
 	private Espectaculo espectaculo;
 	private Usuario vendedor;
 	private Date fechaVenta;
-	private String banco;
-	private String medioPago;
-	private String descuentoBancario;
+	private String nombreCliente; 
+	private int telefonoCliente; 
 	private double total;
 
 	public Espectaculo getEspectaculo() {
@@ -36,36 +35,28 @@ public class Venta {
 		this.fechaVenta = fechaVenta;
 	}
 
-	public String getBanco() {
-		return banco;
-	}
-
-	public void setBanco(String banco) {
-		this.banco = banco;
-	}
-
-	public String getMedioPago() {
-		return medioPago;
-	}
-
-	public void setMedioPago(String medioPago) {
-		this.medioPago = medioPago;
-	}
-
-	public String getDescuentoBancario() {
-		return descuentoBancario;
-	}
-
-	public void setDescuentoBancario(String descuentoBancario) {
-		this.descuentoBancario = descuentoBancario;
-	}
-
 	public double getTotal() {
 		return total;
 	}
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
+
+	public int getTelefonoCliente() {
+		return telefonoCliente;
+	}
+
+	public void setTelefonoCliente(int telefonoCliente) {
+		this.telefonoCliente = telefonoCliente;
 	}
 
 }
