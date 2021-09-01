@@ -16,7 +16,7 @@ public class TableManager {
 
 		Connection conexion;
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
 
 			throw new ErrorConexionBDException();

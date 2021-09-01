@@ -3,7 +3,8 @@ package entidades;
 import java.sql.Date;
 
 public class Espectaculo {
-
+	
+	private int idEspectaculo;
 	private String nombreEspectaculo;
 	private Lugar lugar;
 	private Date fechaRealizacion;
@@ -42,6 +43,14 @@ public class Espectaculo {
 
 		return this.fechaRealizacion;
 
+	}
+
+	public int getIdEspectaculo() {
+		return idEspectaculo;
+	}
+
+	public void setIdEspectaculo(int idEspectaculo) {
+		this.idEspectaculo = idEspectaculo;
 	}
 
 }

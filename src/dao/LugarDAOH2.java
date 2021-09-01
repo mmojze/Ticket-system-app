@@ -27,11 +27,10 @@ public class LugarDAOH2 implements LugarDAO {
 	public int crearLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException,
 			DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
 
-		Connection conexion;
 		int idGenerado = 0;
 
 		try {
-			conexion = DBManager.connect();
+			Connection conexion = DBManager.getInstance().getConnection();
 			String sentencia = "INSERT INTO LUGAR(CAPACIDAD_TOTAL, NOMBRE, DIRECCION, NOMBRE_IMAGEN_LUGAR) VALUES ("
 					+ lugar.getCapacidadTotal() + ", '" + lugar.getNombre() + "', '" + lugar.getDireccion() + "', '"
 					+ lugar.getFotoLugar() + "');";
@@ -77,7 +76,7 @@ public class LugarDAOH2 implements LugarDAO {
 
 		Connection conexion;
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
 			throw new DAOErrorDeConexionBDException();
 		}
@@ -126,7 +125,7 @@ public class LugarDAOH2 implements LugarDAO {
 		Connection conexion;
 		Lugar lugarObtenido = new Lugar();
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();;
 			String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + idLugar + ";";
 
 			try {
@@ -168,7 +167,7 @@ public class LugarDAOH2 implements LugarDAO {
 		Connection conexion;
 
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();;
 		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
 			throw new DAOErrorDeConexionBDException();
 		}

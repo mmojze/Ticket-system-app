@@ -21,11 +21,10 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 	public Usuario consultarUsuario(String usuario, String contraseña) throws DAONoHayResultadosException,
 			DAOErrorDeConexionBDException, DAOErrorDeCierreBDException, DAOErrorEjecucionSentenciaException {
 
-		Connection conexion;
 		Usuario usuarioObtenido = new Usuario();
 
 		try {
-			conexion = DBManager.connect();
+			Connection conexion = DBManager.getInstance().getConnection();
 			String sentencia = "SELECT t1.NOMBRE_USUARIO, t1.NOMBRE , t1.APELLIDO, t2.NOMBRE_ROL "
 					+ "FROM USUARIOS AS T1 " + "INNER JOIN ROLES AS T2 ON t2.ID_ROL = t1.ID_ROL "
 					+ "WHERE t1.NOMBRE_USUARIO = '" + usuario + "' AND t1.CONTRASEÑA = '" + contraseña + "';";

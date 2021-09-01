@@ -29,7 +29,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 			DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
 
 		try {
-			Connection conexion = DBManager.connect();
+			Connection conexion = DBManager.getInstance().getConnection();
 			Statement s;
 
 			try {
@@ -79,7 +79,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 		int idGenerado = 0;
 
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 			String sentencia = "INSERT INTO UBICACIONES(NOMBRE, ID_LUGAR, CAPACIDAD, NOMBRE_IMAGEN_UBICACION) VALUES ('"
 					+ ubicacion.getNombre() + "', " + lugar.getIdLugar() + ", " + ubicacion.getCapacidad() + ", '"
 					+ ubicacion.getFotoUbicacion() + "');";
@@ -125,7 +125,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 		Connection conexion;
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
 			throw new DAOErrorDeConexionBDException();
 		}
@@ -175,7 +175,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 		Connection conexion;
 		Ubicacion ubicacionObtenida = new Ubicacion();
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 			String sentencia = "SELECT * FROM UBICACION WHERE ID_UBICACION = " + idUbicacion + ";";
 
 			try {
@@ -217,7 +217,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 		Connection conexion;
 
 		try {
-			conexion = DBManager.connect();
+			conexion = DBManager.getInstance().getConnection();
 		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
 			throw new DAOErrorDeConexionBDException();
 		}

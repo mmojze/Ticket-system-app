@@ -1,3 +1,5 @@
 /bin/
 *.jpg
 *.png
+/img-lugar/
+/db/
