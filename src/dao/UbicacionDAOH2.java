@@ -156,11 +156,11 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 	}
 
-	public void eliminarUbicacion(int idUbicacion)
+	public void eliminarUbicacion(Ubicacion ubicacion)
 			throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException {
 
 		try {
-			TableManager.borrarFila("UBICACIONES", "ID_UBICACION", idUbicacion);
+			TableManager.borrarFila("UBICACIONES", "ID_UBICACION", ubicacion.getIdUbicacion());
 		} catch (ErrorConexionBDException | ErrorRollbackBDExcepcion | ErrorCierreDeConexionException e) {
 			throw new DAOErrorDeConexionBDException();
 		} catch (ErrorEjecucionDeSentenciaException e) {
@@ -169,14 +169,14 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 	}
 
-	public Ubicacion consultarUbicacion(int idUbicacion) throws DAOErrorDeConexionBDException,
+	public Ubicacion consultarUbicacion(Ubicacion ubicacion) throws DAOErrorDeConexionBDException,
 			DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException {
 
 		Connection conexion;
 		Ubicacion ubicacionObtenida = new Ubicacion();
 		try {
 			conexion = DBManager.getInstance().getConnection();
-			String sentencia = "SELECT * FROM UBICACION WHERE ID_UBICACION = " + idUbicacion + ";";
+			String sentencia = "SELECT * FROM UBICACION WHERE ID_UBICACION = " + ubicacion.getIdUbicacion() + ";";
 
 			try {
 				Statement s = conexion.createStatement();
@@ -210,7 +210,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 	}
 
-	public List<Ubicacion> listarUbicacionesPorLugar(int idLugar)
+	public List<Ubicacion> listarUbicacionesPorLugar(Lugar lugar)
 			throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException,
 			DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
 
@@ -224,7 +224,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 		List<Ubicacion> ubicacionesObtenidas = new ArrayList<Ubicacion>();
 
-		String sentencia = "SELECT * FROM UBICACIONES WHERE ID_LUGAR = " + idLugar + ";";
+		String sentencia = "SELECT * FROM UBICACIONES WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
 
 		try {
 			Statement s = conexion.createStatement();

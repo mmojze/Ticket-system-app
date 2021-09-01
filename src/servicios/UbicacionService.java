@@ -61,7 +61,7 @@ public class UbicacionService {
 
 		List<Ubicacion> lugaresListados;
 		try {
-			lugaresListados = ubicacionDAO.listarUbicacionesPorLugar(lugar.getIdLugar());
+			lugaresListados = ubicacionDAO.listarUbicacionesPorLugar(lugar);
 		} catch (DAOErrorDeConexionBDException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAONoHayResultadosException e) {
@@ -80,7 +80,7 @@ public class UbicacionService {
 		UbicacionDAO ubicacionDAO = new UbicacionDAOH2();
 
 		try {
-			ubicacionDAO.eliminarUbicacion(ubicacion.getIdUbicacion());
+			ubicacionDAO.eliminarUbicacion(ubicacion);
 		} catch (DAOErrorDeConexionBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
