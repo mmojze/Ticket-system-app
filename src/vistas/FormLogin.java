@@ -88,6 +88,7 @@ public class FormLogin extends JPanel implements ActionListener {
 			Usuario usuario = new Usuario(tUsuario.getText(), new String(tContraseña.getPassword()));
 
 			try {
+				// Obtenemos los detalles del usuario 
 				usuario = serviceUsuario.getUser(usuario);
 
 				switch (usuario.getTipoUsuario()) {

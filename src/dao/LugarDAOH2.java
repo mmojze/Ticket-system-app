@@ -107,10 +107,10 @@ public class LugarDAOH2 implements LugarDAO {
 		}
 	}
 
-	public void eliminarLugar(int idLugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException {
+	public void eliminarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException {
 
 		try {
-			TableManager.borrarFila("LUGAR", "ID_LUGAR", idLugar);
+			TableManager.borrarFila("LUGAR", "ID_LUGAR", lugar.getIdLugar());
 		} catch (ErrorConexionBDException | ErrorRollbackBDExcepcion | ErrorCierreDeConexionException e) {
 			throw new DAOErrorDeConexionBDException();
 		} catch (ErrorEjecucionDeSentenciaException e1) {
@@ -119,14 +119,14 @@ public class LugarDAOH2 implements LugarDAO {
 
 	}
 
-	public Lugar consultarLugar(int idLugar) throws DAOErrorDeConexionBDException, DAONoHayResultadosException,
+	public Lugar consultarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAONoHayResultadosException,
 			DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException {
 
 		Connection conexion;
 		Lugar lugarObtenido = new Lugar();
 		try {
 			conexion = DBManager.getInstance().getConnection();;
-			String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + idLugar + ";";
+			String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
 
 			try {
 				Statement s = conexion.createStatement();

@@ -64,7 +64,7 @@ public class LugarService {
 		LugarDAO lugarDAO = new LugarDAOH2();
 
 		try {
-			lugarDAO.eliminarLugar(lugar.getIdLugar());
+			lugarDAO.eliminarLugar(lugar);
 		} catch (DAOErrorDeConexionBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
