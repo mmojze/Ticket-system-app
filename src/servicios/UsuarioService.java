@@ -15,13 +15,14 @@ import exceptions.ServiceNoHayDatosException;
 
 public class UsuarioService {
 
-	public Usuario logearse(String usuario, String contraseña) throws ServiceNoHayDatosException,
+	public Usuario getUser(Usuario usuario) throws ServiceNoHayDatosException,
 			ServiceErrorDeConexionBDException, ServiceErrorEjecucionSentenciaException {
 
 		UsuarioDAO UsuarioDAO = new UsuarioDAOH2();
-		Usuario usuarioLogeado = new Usuario();
+		
 		try {
-			usuarioLogeado = UsuarioDAO.consultarUsuario(usuario, contraseña);
+			Usuario usuarioLogeado = UsuarioDAO.getUser(usuario);
+			return usuarioLogeado;
 		} catch (DAONoHayResultadosException a) {
 			throw new ServiceNoHayDatosException();
 		} catch (DAOErrorDeConexionBDException | DAOErrorDeCierreBDException b) {
@@ -29,8 +30,6 @@ public class UsuarioService {
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();
 		}
-
-		return usuarioLogeado;
 
 	}
 

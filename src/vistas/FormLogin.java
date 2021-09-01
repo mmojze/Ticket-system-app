@@ -84,16 +84,13 @@ public class FormLogin extends JPanel implements ActionListener {
 
 		if (accion.getSource() == login) {
 
-			String contraseña = new String(tContraseña.getPassword());
-			String usuario = tUsuario.getText();
+			UsuarioService serviceUsuario = new UsuarioService();
+			Usuario usuario = new Usuario(tUsuario.getText(), new String(tContraseña.getPassword()));
 
-			UsuarioService servicio = new UsuarioService();
-
-			Usuario usuarioLogeado;
 			try {
-				usuarioLogeado = servicio.logearse(tUsuario.getText(), contraseña);
-				String tipoUsuario = usuarioLogeado.getTipoUsuario();
-				switch (tipoUsuario) {
+				usuario = serviceUsuario.getUser(usuario);
+
+				switch (usuario.getTipoUsuario()) {
 				case "Administrador":
 					panelManager.mostrarFormHomeAdmin();
 					break;

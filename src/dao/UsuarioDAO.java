@@ -8,7 +8,7 @@ import exceptions.DAONoHayResultadosException;
 
 public interface UsuarioDAO {
 
-	public Usuario consultarUsuario(String usuario, String contraseña) throws DAONoHayResultadosException,
+	public Usuario getUser(Usuario usuario) throws DAONoHayResultadosException,
 			DAOErrorDeConexionBDException, DAOErrorDeCierreBDException, DAOErrorEjecucionSentenciaException;
 
 }

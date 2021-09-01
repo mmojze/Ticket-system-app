@@ -18,7 +18,7 @@ import utilidades_db.DBManager;
 
 public class UsuarioDAOH2 implements UsuarioDAO {
 
-	public Usuario consultarUsuario(String usuario, String contraseña) throws DAONoHayResultadosException,
+	public Usuario getUser(Usuario usuario) throws DAONoHayResultadosException,
 			DAOErrorDeConexionBDException, DAOErrorDeCierreBDException, DAOErrorEjecucionSentenciaException {
 
 		Usuario usuarioObtenido = new Usuario();
@@ -27,7 +27,7 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 			Connection conexion = DBManager.getInstance().getConnection();
 			String sentencia = "SELECT t1.NOMBRE_USUARIO, t1.NOMBRE , t1.APELLIDO, t2.NOMBRE_ROL "
 					+ "FROM USUARIOS AS T1 " + "INNER JOIN ROLES AS T2 ON t2.ID_ROL = t1.ID_ROL "
-					+ "WHERE t1.NOMBRE_USUARIO = '" + usuario + "' AND t1.CONTRASEÑA = '" + contraseña + "';";
+					+ "WHERE t1.NOMBRE_USUARIO = '" + usuario.getUsuario() + "' AND t1.CONTRASEÑA = '" + usuario.getContraseña() + "';";
 			try {
 				Statement s = conexion.createStatement();
 				ResultSet result = s.executeQuery(sentencia);

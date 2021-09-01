@@ -6,12 +6,11 @@ public class Usuario {
 	private String apellido;
 	private String usuario;
 	private String tipoUsuario;
-
-	public Usuario(String nombre, String apellido, String usuario, String tipoUsuario) {
-		this.nombre = nombre;
-		this.apellido = apellido;
+	private String contraseña;
+	
+	public Usuario(String usuario, String contraseña) {
 		this.usuario = usuario;
-		this.tipoUsuario = tipoUsuario;
+		this.contraseña = contraseña;
 	}
 
 	public Usuario() {
@@ -64,6 +63,14 @@ public class Usuario {
 
 		this.usuario = usuario;
 
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 
 }
