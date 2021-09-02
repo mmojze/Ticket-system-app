@@ -18,5 +18,5 @@ public interface UbicacionDAO {
 	public void eliminarUbicacion(Ubicacion ubicacion) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException;
 	public Ubicacion consultarUbicacion(Ubicacion ubicacion) throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException;
 	public List<Ubicacion> listarUbicacionesPorLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException;
-	
+	 
 }

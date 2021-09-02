@@ -136,9 +136,9 @@ public class FormUbicacionABM extends AbstractFormTable {
 
 				JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos");
 
-			} else if (this.fotoUbicacion == null) {
+			//} else if (this.fotoUbicacion == null) {
 
-				JOptionPane.showMessageDialog(this, "Por favor, cargue una foto a la ubicación");
+				//JOptionPane.showMessageDialog(this, "Por favor, cargue una foto a la ubicación");
 
 			} else {
 
@@ -226,7 +226,7 @@ public class FormUbicacionABM extends AbstractFormTable {
 
 			if (totalCapacidadUbicaciones == lugar.getCapacidadTotal()) {
 				JOptionPane.showMessageDialog(this, "Estadio y ubicaciones creado con éxito");
-				System.out.println(this.totalCapacidadUbicaciones);
+				panelManager.mostrarFormHomeAdmin();
 			} else if (this.totalCapacidadUbicaciones < lugar.getCapacidadTotal()) {
 				JOptionPane.showMessageDialog(this,
 						"Faltan agregar ubicaciones para completar la capacidad total del estadio");

@@ -19,7 +19,7 @@ import servicios.LugarService;
 
 public class FormHomeAdmin extends AbstractFormHome {
 
-	private JButton botonCrearLugar, botonAdministrarLugares, botonListarLugares;
+	private JButton botonCrearLugar, botonAdministrarLugares, botonListarLugares, botonCrearEspectaculo, botonGestionarEspectaculos;
 
 	public FormHomeAdmin(PanelManager panelManager) {
 
@@ -30,17 +30,23 @@ public class FormHomeAdmin extends AbstractFormHome {
 	public void armarFormHomeAdmin() {
 
 		botonCrearLugar = new JButton("Crear lugar");
-		botonAdministrarLugares = new JButton("Administrar lugares");
-		botonListarLugares = new JButton("Listar lugares");
+		botonAdministrarLugares = new JButton("Gestionar lugares");
+		botonListarLugares = new JButton("Listar lugares (deprecado)");
+		botonCrearEspectaculo = new JButton("Crear espectaculo");
+		botonGestionarEspectaculos = new JButton("Gestionar espectaculos");
 		
 		this.add(botonCrearLugar);
 		this.add(botonAdministrarLugares);
 		this.add(botonListarLugares);
+		this.add(botonCrearEspectaculo);
+		this.add(botonGestionarEspectaculos);
 
 
 		botonCrearLugar.addActionListener(this);
 		botonAdministrarLugares.addActionListener(this);
 		botonListarLugares.addActionListener(this);
+		botonCrearEspectaculo.addActionListener(this);
+		botonGestionarEspectaculos.addActionListener(this);
 
 
 	}
