@@ -16,7 +16,7 @@ import entidades.Ubicacion;
 import exceptions.ArchivoNoExisteException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 import servicios.LugarService;
 import utilidades.OperacionesImagenes;
 

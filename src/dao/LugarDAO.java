@@ -3,18 +3,14 @@ package dao;
 import java.util.List;
 
 import entidades.Lugar;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAOErrorEjecucionSentenciaException;
-import exceptions.DAOErrorRollbackBDException;
-import exceptions.DAONoHayResultadosException;
+import exceptions.DAOException;
 
 public interface LugarDAO {
 	
-	public int crearLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException;
-	public void modificarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException, DAOErrorRollbackBDException;
-	public void eliminarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException;
-	public Lugar consultarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException;
-	public List<Lugar> listarLugares() throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException;
+	public Lugar crearLugar(Lugar lugar) throws DAOException;
+	public Lugar modificarLugar(Lugar lugar) throws DAOException;
+	public void eliminarLugar(Lugar lugar) throws DAOException;
+	public Lugar consultarLugar(Lugar lugar) throws DAOException;
+	public List<Lugar> listarLugares() throws DAOException;
 
 }

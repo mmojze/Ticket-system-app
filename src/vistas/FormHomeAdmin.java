@@ -14,7 +14,7 @@ import entidades.Lugar;
 import entidades.Usuario;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 import servicios.LugarService;
 
 public class FormHomeAdmin extends AbstractFormHome {
@@ -68,7 +68,7 @@ public class FormHomeAdmin extends AbstractFormHome {
 			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
 				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
 						JOptionPane.ERROR_MESSAGE);
-			} catch (ServiceNoHayDatosException e) {
+			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -83,7 +83,7 @@ public class FormHomeAdmin extends AbstractFormHome {
 			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
 				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
 						JOptionPane.ERROR_MESSAGE);
-			} catch (ServiceNoHayDatosException e) {
+			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
 			}
 

@@ -8,18 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Usuario;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAOErrorEjecucionSentenciaException;
-import exceptions.DAONoHayResultadosException;
-import exceptions.ErrorConexionBDException;
-import exceptions.ErrorDriverBDException;
+import exceptions.DAOException;
 import utilidades_db.DBManager;
 
 public class UsuarioDAOH2 implements UsuarioDAO {
 
-	public Usuario getUser(Usuario usuario) throws DAONoHayResultadosException,
-			DAOErrorDeConexionBDException, DAOErrorDeCierreBDException, DAOErrorEjecucionSentenciaException {
+	public Usuario getUser(Usuario usuario) throws DAOException {
 
 		Usuario usuarioObtenido = new Usuario();
 
@@ -27,13 +21,14 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 			Connection conexion = DBManager.getInstance().getConnection();
 			String sentencia = "SELECT t1.NOMBRE_USUARIO, t1.NOMBRE , t1.APELLIDO, t2.NOMBRE_ROL "
 					+ "FROM USUARIOS AS T1 " + "INNER JOIN ROLES AS T2 ON t2.ID_ROL = t1.ID_ROL "
-					+ "WHERE t1.NOMBRE_USUARIO = '" + usuario.getUsuario() + "' AND t1.CONTRASEÑA = '" + usuario.getContraseña() + "';";
+					+ "WHERE t1.NOMBRE_USUARIO = '" + usuario.getUsuario() + "' AND t1.CONTRASEÑA = '"
+					+ usuario.getContraseña() + "';";
 			try {
 				Statement s = conexion.createStatement();
 				ResultSet result = s.executeQuery(sentencia);
 				conexion.commit();
 				if (result.next() == false) {
-					throw new DAONoHayResultadosException();
+					throw new DAOException();
 				} else {
 
 					usuarioObtenido.setApellido(result.getString("APELLIDO"));
@@ -43,16 +38,16 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 
 				}
 			} catch (SQLException e) {
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 			} finally {
 				try {
 					conexion.close();
 				} catch (SQLException e) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException();
 				}
 			}
-		} catch (ErrorConexionBDException | ErrorDriverBDException e1) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e1) {
+			throw new DAOException();
 		}
 
 		return usuarioObtenido;

@@ -15,7 +15,7 @@ import entidades.Ubicacion;
 import exceptions.ArchivoNoExisteException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 import servicios.LugarService;
 import servicios.UbicacionService;
 import utilidades.OperacionesImagenes;
@@ -92,7 +92,7 @@ public class FormLugarModificar extends AbstractFormLugar {
 				} catch (ServiceErrorEjecucionSentenciaException e) {
 					JOptionPane.showMessageDialog(this, "Error", "No se pudo modificar el lugar",
 							JOptionPane.ERROR_MESSAGE);
-				} catch (ServiceNoHayDatosException e) {
+				} catch (ServiceException e) {
 					JOptionPane.showMessageDialog(this, "Error", "No hay ubicaciones para éste lugar",
 							JOptionPane.ERROR_MESSAGE);
 				}

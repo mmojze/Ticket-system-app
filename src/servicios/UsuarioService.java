@@ -4,18 +4,18 @@ import dao.UsuarioDAO;
 import dao.UsuarioDAOH2;
 import entidades.Usuario;
 import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
+import exceptions.DAOException;
 import exceptions.DAOErrorEjecucionSentenciaException;
 import exceptions.DAONoHayResultadosException;
 import exceptions.ErrorConexionBDException;
 import exceptions.NoSeEncontroUsuarioException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 
 public class UsuarioService {
 
-	public Usuario getUser(Usuario usuario) throws ServiceNoHayDatosException,
+	public Usuario getUser(Usuario usuario) throws ServiceException,
 			ServiceErrorDeConexionBDException, ServiceErrorEjecucionSentenciaException {
 
 		UsuarioDAO UsuarioDAO = new UsuarioDAOH2();
@@ -24,8 +24,8 @@ public class UsuarioService {
 			Usuario usuarioLogeado = UsuarioDAO.getUser(usuario);
 			return usuarioLogeado;
 		} catch (DAONoHayResultadosException a) {
-			throw new ServiceNoHayDatosException();
-		} catch (DAOErrorDeConexionBDException | DAOErrorDeCierreBDException b) {
+			throw new ServiceException();
+		} catch (DAOException | DAOErrorDeCierreBDException b) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();

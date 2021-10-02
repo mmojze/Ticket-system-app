@@ -15,7 +15,7 @@ import entidades.Lugar;
 import entidades.Ubicacion;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 import servicios.UbicacionService;
 import tablemodels.ListarLugaresTableModel;
 
@@ -69,7 +69,7 @@ public class FormLugarListar extends AbstractFormTable {
 			} catch (ServiceErrorDeConexionBDException|ServiceErrorEjecucionSentenciaException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No se pudo conectar a la BD",
 						JOptionPane.ERROR_MESSAGE);
-			} catch (ServiceNoHayDatosException e) {
+			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay datos de ubicación para este lugar",
 						JOptionPane.ERROR_MESSAGE);
 			}

@@ -9,26 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Lugar;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAOErrorEjecucionSentenciaException;
-import exceptions.DAOErrorRollbackBDException;
-import exceptions.DAONoHayResultadosException;
-import exceptions.ErrorCierreDeConexionException;
-import exceptions.ErrorConexionBDException;
-import exceptions.ErrorDriverBDException;
-import exceptions.ErrorEjecucionDeSentenciaException;
-import exceptions.ErrorRollbackBDExcepcion;
+import exceptions.DAOException;
 import utilidades_db.DBManager;
 import utilidades_db.TableManager;
 
 public class LugarDAOH2 implements LugarDAO {
 
-	public int crearLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException,
-			DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
+	public Lugar crearLugar(Lugar lugar) throws DAOException {
 
 		int idGenerado = 0;
-
+		
+		/*
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
 			String sentencia = "INSERT INTO LUGAR(CAPACIDAD_TOTAL, NOMBRE, DIRECCION, NOMBRE_IMAGEN_LUGAR) VALUES ("
@@ -43,42 +34,43 @@ public class LugarDAOH2 implements LugarDAO {
 
 				if (rs.next()) {
 					idGenerado = rs.getInt(1);
-				} else {
-					throw new DAOErrorEjecucionSentenciaException();
 				}
 
 			} catch (SQLException e) {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					throw new DAOErrorRollbackBDException();
+					throw new DAOException();
 				}
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 			} finally {
 
 				try {
 					conexion.close();
 				} catch (SQLException e1) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException ();
 				}
 			}
 
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch ( SQLException e2) {
+			throw new DAOException();
 		}
 
 		return idGenerado;
+		*/
+		return null;
+		
 
 	}
 
-	public void modificarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException,
-			DAOErrorDeCierreBDException, DAOErrorRollbackBDException {
-
+	public Lugar modificarLugar(Lugar lugar) throws DAOException {
+		
+		/*
 		Connection conexion;
 		try {
 			conexion = DBManager.getInstance().getConnection();
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch ( SQLException e2) {
+			throw new DAOException();
 		}
 
 		Statement s;
@@ -95,32 +87,37 @@ public class LugarDAOH2 implements LugarDAO {
 			try {
 				conexion.rollback();
 			} catch (SQLException e1) {
-				throw new DAOErrorRollbackBDException();
+				throw new DAOException();
 			}
-			throw new DAOErrorEjecucionSentenciaException();
+			throw new DAOException();
 		} finally {
 			try {
 				conexion.close();
 			} catch (SQLException e) {
-				throw new DAOErrorDeCierreBDException();
+				throw new DAOException();
 			}
 		}
+		*/
+		
+		return null;
+		
 	}
 
-	public void eliminarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException {
-
+	public void eliminarLugar(Lugar lugar) throws DAOException {
+		
+		/*
 		try {
 			TableManager.borrarFila("LUGAR", "ID_LUGAR", lugar.getIdLugar());
 		} catch (ErrorConexionBDException | ErrorRollbackBDExcepcion | ErrorCierreDeConexionException e) {
-			throw new DAOErrorDeConexionBDException();
+			throw new DAOException();
 		} catch (ErrorEjecucionDeSentenciaException e1) {
 			throw new DAOErrorEjecucionSentenciaException();
 		}
+		*/
 
 	}
 
-	public Lugar consultarLugar(Lugar lugar) throws DAOErrorDeConexionBDException, DAONoHayResultadosException,
-			DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException {
+	public Lugar consultarLugar(Lugar lugar) throws DAOException {
 
 		Connection conexion;
 		Lugar lugarObtenido = new Lugar();
@@ -135,7 +132,7 @@ public class LugarDAOH2 implements LugarDAO {
 
 				if (result.next() == false) {
 
-					throw new DAONoHayResultadosException();
+					throw new DAOException();
 
 				} else {
 
@@ -147,29 +144,28 @@ public class LugarDAOH2 implements LugarDAO {
 
 				}
 			} catch (SQLException e) {
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 			} finally {
 				try {
 					conexion.close();
 				} catch (SQLException e) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException();
 				}
 			}
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e2) {
+			throw new DAOException();
 		}
 
 	}
 
-	public List<Lugar> listarLugares() throws DAOErrorDeConexionBDException, DAONoHayResultadosException,
-			DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
+	public List<Lugar> listarLugares() throws DAOException {
 
 		Connection conexion;
 
 		try {
 			conexion = DBManager.getInstance().getConnection();;
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e2) {
+			throw new DAOException();
 		}
 
 		List<Lugar> lugaresObtenidos = new ArrayList<Lugar>();
@@ -190,12 +186,12 @@ public class LugarDAOH2 implements LugarDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new DAOErrorEjecucionSentenciaException();
+			throw new DAOException();
 		} finally {
 			try {
 				conexion.close();
 			} catch (SQLException e) {
-				throw new DAOErrorDeCierreBDException();
+				throw new DAOException();
 			}
 		}
 

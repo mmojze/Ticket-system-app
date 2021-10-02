@@ -3,18 +3,14 @@ package dao;
 import java.util.List;
 
 import entidades.Espectaculo;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAOErrorEjecucionSentenciaException;
-import exceptions.DAOErrorRollbackBDException;
-import exceptions.DAONoHayResultadosException;
+import exceptions.DAOException;
 
 public interface EspectaculoDAO {
 	
-	public void crearEspectaculo(Espectaculo espectaculo) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException;
-	public void modificarEspectaculo(Espectaculo espectaculo) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException, DAOErrorRollbackBDException;
-	public void eliminarEspectaculo(Espectaculo espectaculo) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException;
-	public Espectaculo consultarEspectaculo(Espectaculo espectaculo) throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException;
-	public List<Espectaculo> listarEspectaculos() throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException;
+	public Espectaculo crearEspectaculo(Espectaculo espectaculo) throws DAOException;
+	public Espectaculo modificarEspectaculo(Espectaculo espectaculo) throws DAOException;
+	public void eliminarEspectaculo(Espectaculo espectaculo) throws DAOException;
+	public Espectaculo consultarEspectaculo(Espectaculo espectaculo) throws DAOException;
+	public List<Espectaculo> listarEspectaculos() throws DAOException;
 
 }

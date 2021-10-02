@@ -10,23 +10,13 @@ import java.util.List;
 
 import entidades.Lugar;
 import entidades.Ubicacion;
-import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
-import exceptions.DAOErrorEjecucionSentenciaException;
-import exceptions.DAOErrorRollbackBDException;
-import exceptions.DAONoHayResultadosException;
-import exceptions.ErrorCierreDeConexionException;
-import exceptions.ErrorConexionBDException;
-import exceptions.ErrorDriverBDException;
-import exceptions.ErrorEjecucionDeSentenciaException;
-import exceptions.ErrorRollbackBDExcepcion;
+import exceptions.DAOException;
 import utilidades_db.DBManager;
 import utilidades_db.TableManager;
 
 public class UbicacionDAOH2 implements UbicacionDAO {
 
-	public void crearUbicaciones(List<Ubicacion> ubicaciones) throws DAOErrorDeConexionBDException,
-			DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
+	public void crearUbicaciones(List<Ubicacion> ubicaciones) throws DAOException {
 
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
@@ -52,28 +42,28 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					throw new DAOErrorRollbackBDException();
+					throw new DAOException();
 				}
 
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 
 			} finally {
 
 				try {
 					conexion.close();
 				} catch (SQLException e) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException();
 				}
 
 			}
 
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e2) {
+			throw new DAOException();
 		}
 
 	}
 
-	public int crearUbicacion(Ubicacion ubicacion, Lugar lugar) throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException, DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
+	public int crearUbicacion(Ubicacion ubicacion, Lugar lugar) throws DAOException {
 
 		Connection conexion;
 		int idGenerado = 0;
@@ -93,41 +83,40 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 				if (rs.next()) {
 					idGenerado = rs.getInt(1);
 				} else {
-					throw new DAOErrorEjecucionSentenciaException();
+					throw new DAOException();
 				}
 
 			} catch (SQLException e) {
 				try {
 					conexion.rollback();
 				} catch (SQLException e1) {
-					throw new DAOErrorRollbackBDException();
+					throw new DAOException();
 				}
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 			} finally {
 
 				try {
 					conexion.close();
 				} catch (SQLException e1) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException();
 				}
 			}
 
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e) {
+			throw new DAOException();
 		}
 		
 		return idGenerado;
 
 	}
 
-	public void modificarUbicacion(Ubicacion ubicacion) throws DAOErrorDeConexionBDException,
-			DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException, DAOErrorRollbackBDException {
+	public void modificarUbicacion(Ubicacion ubicacion) throws DAOException {
 
 		Connection conexion;
 		try {
 			conexion = DBManager.getInstance().getConnection();
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e) {
+			throw new DAOException();
 		}
 
 		Statement s;
@@ -143,34 +132,33 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 			try {
 				conexion.rollback();
 			} catch (SQLException e1) {
-				throw new DAOErrorRollbackBDException();
+				throw new DAOException();
 			}
-			throw new DAOErrorEjecucionSentenciaException();
+			throw new DAOException();
 		} finally {
 			try {
 				conexion.close();
 			} catch (SQLException e) {
-				throw new DAOErrorDeCierreBDException();
+				throw new DAOException();
 			}
 		}
 
 	}
 
 	public void eliminarUbicacion(Ubicacion ubicacion)
-			throws DAOErrorDeConexionBDException, DAOErrorEjecucionSentenciaException {
-
+			throws DAOException {
+		
+		/*
 		try {
 			TableManager.borrarFila("UBICACIONES", "ID_UBICACION", ubicacion.getIdUbicacion());
-		} catch (ErrorConexionBDException | ErrorRollbackBDExcepcion | ErrorCierreDeConexionException e) {
-			throw new DAOErrorDeConexionBDException();
-		} catch (ErrorEjecucionDeSentenciaException e) {
-			throw new DAOErrorEjecucionSentenciaException();
+		} catch (SQLException e) {
+			throw new DAOException();
 		}
+		*/
 
 	}
 
-	public Ubicacion consultarUbicacion(Ubicacion ubicacion) throws DAOErrorDeConexionBDException,
-			DAONoHayResultadosException, DAOErrorEjecucionSentenciaException, DAOErrorDeCierreBDException {
+	public Ubicacion consultarUbicacion(Ubicacion ubicacion) throws DAOException {
 
 		Connection conexion;
 		Ubicacion ubicacionObtenida = new Ubicacion();
@@ -185,7 +173,7 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 				if (result.next() == false) {
 
-					throw new DAONoHayResultadosException();
+					throw new DAOException();
 
 				} else {
 
@@ -196,30 +184,29 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 				}
 			} catch (SQLException e) {
-				throw new DAOErrorEjecucionSentenciaException();
+				throw new DAOException();
 			} finally {
 				try {
 					conexion.close();
 				} catch (SQLException e) {
-					throw new DAOErrorDeCierreBDException();
+					throw new DAOException();
 				}
 			}
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e2) {
+			throw new DAOException();
 		}
 
 	}
 
 	public List<Ubicacion> listarUbicacionesPorLugar(Lugar lugar)
-			throws DAOErrorDeConexionBDException, DAONoHayResultadosException, DAOErrorEjecucionSentenciaException,
-			DAOErrorRollbackBDException, DAOErrorDeCierreBDException {
+			throws DAOException {
 
 		Connection conexion;
 
 		try {
 			conexion = DBManager.getInstance().getConnection();
-		} catch (ErrorConexionBDException | ErrorDriverBDException e2) {
-			throw new DAOErrorDeConexionBDException();
+		} catch (SQLException e2) {
+			throw new DAOException();
 		}
 
 		List<Ubicacion> ubicacionesObtenidas = new ArrayList<Ubicacion>();
@@ -239,12 +226,12 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new DAOErrorEjecucionSentenciaException();
+			throw new DAOException();
 		} finally {
 			try {
 				conexion.close();
 			} catch (SQLException e) {
-				throw new DAOErrorDeCierreBDException();
+				throw new DAOException();
 			}
 		}
 

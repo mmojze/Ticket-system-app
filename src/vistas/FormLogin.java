@@ -17,7 +17,7 @@ import exceptions.ErrorConexionBDException;
 import exceptions.NoSeEncontroUsuarioException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 import servicios.UsuarioService;
 
 import javax.swing.*;
@@ -99,7 +99,7 @@ public class FormLogin extends JPanel implements ActionListener {
 					panelManager.mostrarFormHomeVendedor();
 					break;
 				}
-			} catch (ServiceNoHayDatosException e) {
+			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(popupLogin,
 						"El usuario no existe o la contraseña es incorrecta, por favor revise los datos");
 			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {

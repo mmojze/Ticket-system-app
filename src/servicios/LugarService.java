@@ -6,13 +6,13 @@ import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
 import exceptions.DAOErrorDeCierreBDException;
-import exceptions.DAOErrorDeConexionBDException;
+import exceptions.DAOException;
 import exceptions.DAOErrorEjecucionSentenciaException;
 import exceptions.DAOErrorRollbackBDException;
 import exceptions.DAONoHayResultadosException;
 import exceptions.ServiceErrorDeConexionBDException;
 import exceptions.ServiceErrorEjecucionSentenciaException;
-import exceptions.ServiceNoHayDatosException;
+import exceptions.ServiceException;
 
 public class LugarService {
 
@@ -28,7 +28,7 @@ public class LugarService {
 		LugarDAO lugarDAO = new LugarDAOH2();
 		try {
 			idLugar = lugarDAO.crearLugar(lugar);
-		} catch (DAOErrorDeConexionBDException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
+		} catch (DAOException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();
@@ -39,17 +39,17 @@ public class LugarService {
 	}
 
 	public List<Lugar> listarLugares() throws ServiceErrorDeConexionBDException,
-			ServiceErrorEjecucionSentenciaException, ServiceNoHayDatosException {
+			ServiceErrorEjecucionSentenciaException, ServiceException {
 
 		LugarDAO lugarDAO = new LugarDAOH2();
 		List<Lugar> lugaresListados;
 
 		try {
 			lugaresListados = lugarDAO.listarLugares();
-		} catch (DAOErrorDeConexionBDException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
+		} catch (DAOException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAONoHayResultadosException e) {
-			throw new ServiceNoHayDatosException();
+			throw new ServiceException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();
 		}
@@ -65,7 +65,7 @@ public class LugarService {
 
 		try {
 			lugarDAO.eliminarLugar(lugar);
-		} catch (DAOErrorDeConexionBDException e) {
+		} catch (DAOException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();
@@ -79,7 +79,7 @@ public class LugarService {
 
 		try {
 			lugarDAO.modificarLugar(lugar);
-		} catch (DAOErrorDeConexionBDException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
+		} catch (DAOException | DAOErrorRollbackBDException | DAOErrorDeCierreBDException e) {
 			throw new ServiceErrorDeConexionBDException();
 		} catch (DAOErrorEjecucionSentenciaException e) {
 			throw new ServiceErrorEjecucionSentenciaException();

@@ -5,9 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import exceptions.ErrorConexionBDException;
-import exceptions.ErrorDriverBDException;
-
 public class DBManager {
 
 	private static final String DB_DRIVER = "org.h2.Driver";
@@ -20,21 +17,21 @@ public class DBManager {
 	private DBManager() {
 	}
 
-	public Connection getConnection() throws ErrorConexionBDException, ErrorDriverBDException {
+	public Connection getConnection() throws SQLException {
 
 		Connection c = null;
 
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e1) {
-			throw new ErrorDriverBDException();
+			throw new SQLException();
 		}
 
 		try {
 			c = DriverManager.getConnection(DB_BASE_URL, DB_USERNAME, DB_PASSWORD);
 			c.setAutoCommit(false);
 		} catch (SQLException e) {
-			throw new ErrorConexionBDException();
+			throw new SQLException();
 		}
 
 		return c;
@@ -50,6 +47,7 @@ public class DBManager {
 				}
 			}
 		}
+		
 		return instance;
 
 	}

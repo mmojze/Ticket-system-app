@@ -1,0 +1,21 @@
+package exceptions;
+
+public class SQLException extends Exception {
+
+	public SQLException() { 
+	}
+
+	public SQLException(String message) {
+	 super(message); 
+	}
+
+	public SQLException(Throwable cause) {
+	 super(cause);
+	}
+
+	public SQLException(String message, Throwable cause) {
+	 super(message,cause);
+	 
+	}
+
+}
