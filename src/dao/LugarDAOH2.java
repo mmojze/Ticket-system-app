@@ -17,116 +17,89 @@ public class LugarDAOH2 implements LugarDAO {
 
 	public Lugar crearLugar(Lugar lugar) throws DAOException {
 
-		int idGenerado = 0;
-		
-		/*
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
-			String sentencia = "INSERT INTO LUGAR(CAPACIDAD_TOTAL, NOMBRE, DIRECCION, NOMBRE_IMAGEN_LUGAR) VALUES ("
-					+ lugar.getCapacidadTotal() + ", '" + lugar.getNombre() + "', '" + lugar.getDireccion() + "', '"
-					+ lugar.getFotoLugar() + "');";
 
 			try {
+
+				String sentencia = "INSERT INTO LUGAR(CAPACIDAD_TOTAL, NOMBRE, DIRECCION, NOMBRE_IMAGEN_LUGAR) VALUES ("
+						+ lugar.getCapacidadTotal() + ", '" + lugar.getNombre() + "', '" + lugar.getDireccion() + "', '"
+						+ lugar.getFotoLugar() + "');";
 				PreparedStatement s = conexion.prepareStatement(sentencia, Statement.RETURN_GENERATED_KEYS);
 				int result = s.executeUpdate();
 				conexion.commit();
 				ResultSet rs = s.getGeneratedKeys();
 
 				if (rs.next()) {
-					idGenerado = rs.getInt(1);
+					lugar.setIdLugar(rs.getInt(1));
 				}
 
 			} catch (SQLException e) {
-				try {
-					conexion.rollback();
-				} catch (SQLException e1) {
-					throw new DAOException();
-				}
+				conexion.rollback();
 				throw new DAOException();
 			} finally {
-
-				try {
-					conexion.close();
-				} catch (SQLException e1) {
-					throw new DAOException ();
-				}
+				conexion.close();
 			}
 
-		} catch ( SQLException e2) {
+		} catch (SQLException e) {
 			throw new DAOException();
 		}
 
-		return idGenerado;
-		*/
-		return null;
-		
+		return lugar;
 
 	}
 
 	public Lugar modificarLugar(Lugar lugar) throws DAOException {
-		
-		/*
-		Connection conexion;
-		try {
-			conexion = DBManager.getInstance().getConnection();
-		} catch ( SQLException e2) {
-			throw new DAOException();
-		}
 
-		Statement s;
 		try {
-			s = conexion.createStatement();
-			String sentencia = "UPDATE LUGAR SET CAPACIDAD_TOTAL = " + lugar.getCapacidadTotal() + ", " + "NOMBRE = '"
-					+ lugar.getNombre() + "' ," + "DIRECCION = '" + lugar.getDireccion() + "' ,"
-					+ "NOMBRE_IMAGEN_LUGAR = '" + lugar.getFotoLugar() + "' WHERE ID_LUGAR = " + lugar.getIdLugar()
-					+ ";";
+			Connection conexion = DBManager.getInstance().getConnection();
 
-			s.executeUpdate(sentencia);
-			conexion.commit();
-		} catch (SQLException e) {
 			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				throw new DAOException();
-			}
-			throw new DAOException();
-		} finally {
-			try {
-				conexion.close();
+				Statement s = conexion.createStatement();
+				String sentencia = "UPDATE LUGAR SET CAPACIDAD_TOTAL = " + lugar.getCapacidadTotal() + ", "
+						+ "NOMBRE = '" + lugar.getNombre() + "' ," + "DIRECCION = '" + lugar.getDireccion() + "' ,"
+						+ "NOMBRE_IMAGEN_LUGAR = '" + lugar.getFotoLugar() + "' WHERE ID_LUGAR = " + lugar.getIdLugar()
+						+ ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+
 			} catch (SQLException e) {
+				conexion.rollback();
 				throw new DAOException();
+			} finally {
+				conexion.close();
 			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
 		}
-		*/
-		
-		return null;
-		
+
+		return lugar;
+
 	}
 
 	public void eliminarLugar(Lugar lugar) throws DAOException {
-		
+
 		/*
-		try {
-			TableManager.borrarFila("LUGAR", "ID_LUGAR", lugar.getIdLugar());
-		} catch (ErrorConexionBDException | ErrorRollbackBDExcepcion | ErrorCierreDeConexionException e) {
-			throw new DAOException();
-		} catch (ErrorEjecucionDeSentenciaException e1) {
-			throw new DAOErrorEjecucionSentenciaException();
-		}
-		*/
+		 * try { TableManager.borrarFila("LUGAR", "ID_LUGAR", lugar.getIdLugar()); }
+		 * catch (ErrorConexionBDException | ErrorRollbackBDExcepcion |
+		 * ErrorCierreDeConexionException e) { throw new DAOException(); } catch
+		 * (ErrorEjecucionDeSentenciaException e1) { throw new
+		 * DAOErrorEjecucionSentenciaException(); }
+		 */
 
 	}
 
 	public Lugar consultarLugar(Lugar lugar) throws DAOException {
-
-		Connection conexion;
-		Lugar lugarObtenido = new Lugar();
+		
 		try {
-			conexion = DBManager.getInstance().getConnection();;
-			String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
-
+			Connection conexion = DBManager.getInstance().getConnection();
+			
 			try {
+				
 				Statement s = conexion.createStatement();
+				String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
 				ResultSet result = s.executeQuery(sentencia);
 				conexion.commit();
 
@@ -135,26 +108,26 @@ public class LugarDAOH2 implements LugarDAO {
 					throw new DAOException();
 
 				} else {
-
-					lugarObtenido = new Lugar(result.getString("NOMBRE"), result.getString("DIRECCION"),
-							result.getInt("CAPACIDAD_TOTAL"), result.getString("NOMBRE_IMAGEN_LUGAR"),
-							result.getInt("ID_LUGAR"));
-
-					return lugarObtenido;
-
+					
+					lugar.setNombre(result.getString("NOMBRE"));
+					lugar.setDireccion(result.getString("DIRECCION"));
+					lugar.setCapacidadTotal(result.getInt("CAPACIDAD_TOTAL"));
+					lugar.setFotoLugar(result.getString("NOMBRE_IMAGEN_LUGAR"));
+					lugar.setIdLugar(result.getInt("ID_LUGAR"));
+					
 				}
+
 			} catch (SQLException e) {
 				throw new DAOException();
-			} finally {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					throw new DAOException();
-				}
+			} finally { 
+				conexion.close();
 			}
-		} catch (SQLException e2) {
+			
+		} catch (SQLException e) {
 			throw new DAOException();
 		}
+				
+		return lugar;
 
 	}
 
@@ -163,7 +136,8 @@ public class LugarDAOH2 implements LugarDAO {
 		Connection conexion;
 
 		try {
-			conexion = DBManager.getInstance().getConnection();;
+			conexion = DBManager.getInstance().getConnection();
+			;
 		} catch (SQLException e2) {
 			throw new DAOException();
 		}
