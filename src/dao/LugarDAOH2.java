@@ -118,6 +118,7 @@ public class LugarDAOH2 implements LugarDAO {
 				}
 
 			} catch (SQLException e) {
+				conexion.rollback();
 				throw new DAOException();
 			} finally { 
 				conexion.close();
