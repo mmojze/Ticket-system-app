@@ -9,6 +9,14 @@ public class Espectaculo {
 	private Lugar lugar;
 	private Date fechaRealizacion;
 
+	public Espectaculo(String nombreEspectaculo, Lugar lugar, Date fechaRealizacion, int idEspectaculo) {
+		this.idEspectaculo = idEspectaculo;
+		this.fechaRealizacion = fechaRealizacion;
+		this.nombreEspectaculo = nombreEspectaculo;
+		this.lugar = lugar;
+		
+	}
+
 	public void setNombreEspectaculo(String nombreEspectaculo) {
 
 		this.nombreEspectaculo = nombreEspectaculo;

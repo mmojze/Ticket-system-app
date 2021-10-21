@@ -65,6 +65,10 @@ public class Lugar {
 
 	}
 
+	public Lugar(int idLugar) {
+		this.idLugar = idLugar;
+	}
+
 	public List<Ubicacion> getUbicacionesLugar() {
 		return ubicacionesLugar;
 	}
