@@ -1,10 +1,10 @@
 package entidades;
 
 public class Usuario {
-
+	
+	private String usuario;
 	private String nombre;
 	private String apellido;
-	private String usuario;
 	private String tipoUsuario;
 	private String contraseña;
 	
@@ -15,6 +15,10 @@ public class Usuario {
 
 	public Usuario() {
 
+	}
+
+	public Usuario(String nombreUsuario) {
+		this.usuario = nombreUsuario;
 	}
 
 	public String getTipoUsuario() {

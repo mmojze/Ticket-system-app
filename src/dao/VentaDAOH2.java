@@ -1,11 +1,16 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Espectaculo;
+import entidades.Ubicacion;
+import entidades.Usuario;
 import entidades.Venta;
 import exceptions.DAOException;
 import utilidades_db.DBManager;
@@ -13,25 +18,25 @@ import utilidades_db.DBManager;
 public class VentaDAOH2 implements VentaDAO {
 
 	public Venta crearVenta(Venta venta) throws DAOException {
-		
+
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
 
 			try {
-				
-				/*
-				String sentencia = "INSERT INTO LUGAR(CAPACIDAD_TOTAL, NOMBRE, DIRECCION, NOMBRE_IMAGEN_LUGAR) VALUES ("
-						+ lugar.getCapacidadTotal() + ", '" + lugar.getNombre() + "', '" + lugar.getDireccion() + "', '"
-						+ lugar.getFotoLugar() + "');";
+
+				String sentencia = "INSERT INTO VENTAS(ID_UBICACION, NOMBRE_USUARIO, FECHA_VENTA, NOMBRE_CLIENTE, TELEFONO_CLIENTE, TOTAL) "
+						+ "VALUES (" + venta.getUbicacion().getIdUbicacion() + "', '" + venta.getVendedor().getUsuario()
+						+ "', '" + venta.getFechaVenta() + "', '" + venta.getNombreCliente() + "', '"
+						+ venta.getTelefonoCliente() + "', '" + venta.getTotal() + "');";
+
 				PreparedStatement s = conexion.prepareStatement(sentencia, Statement.RETURN_GENERATED_KEYS);
 				int result = s.executeUpdate();
 				conexion.commit();
 				ResultSet rs = s.getGeneratedKeys();
 
 				if (rs.next()) {
-					lugar.setIdLugar(rs.getInt(1));
+					venta.setIdVenta(rs.getInt(1));
 				}
-				*/
 
 			} catch (SQLException e) {
 				conexion.rollback();
@@ -45,27 +50,26 @@ public class VentaDAOH2 implements VentaDAO {
 		}
 
 		return venta;
-		
+
 	}
 
 	public Venta modificarVenta(Venta venta) throws DAOException {
-		
+
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
 
 			try {
-				
-				/*
+
 				Statement s = conexion.createStatement();
-				String sentencia = "UPDATE LUGAR SET CAPACIDAD_TOTAL = " + lugar.getCapacidadTotal() + ", "
-						+ "NOMBRE = '" + lugar.getNombre() + "' ," + "DIRECCION = '" + lugar.getDireccion() + "' ,"
-						+ "NOMBRE_IMAGEN_LUGAR = '" + lugar.getFotoLugar() + "' WHERE ID_LUGAR = " + lugar.getIdLugar()
-						+ ";";
+
+				String sentencia = "UPDATE LUGAR SET ID_UBICACION = " + venta.getUbicacion().getIdUbicacion() + ", "
+						+ "NOMBRE_CLIENTE = '" + venta.getNombreCliente() + "' ," + "TELEFONO_CLIENTE = '"
+						+ venta.getTelefonoCliente() + "' ," + "TOTAL = '" + venta.getTotal() + "' WHERE ID_VENTA = "
+						+ venta.getIdVenta() + ";";
 
 				s.executeUpdate(sentencia);
 				conexion.commit();
-				*/
-				
+
 			} catch (SQLException e) {
 				conexion.rollback();
 				throw new DAOException();
@@ -78,27 +82,23 @@ public class VentaDAOH2 implements VentaDAO {
 		}
 
 		return venta;
-		
+
 	}
 
-	
 	public void eliminarVenta(Venta venta) throws DAOException {
-		
-		
+
 	}
 
-	
 	public Venta consultarVenta(Venta venta) throws DAOException {
-	
+
 		try {
 			Connection conexion = DBManager.getInstance().getConnection();
-			
+
 			try {
-				
-				/*
-				
+
 				Statement s = conexion.createStatement();
-				String sentencia = "SELECT * FROM LUGAR WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
+				String sentencia = "SELECT * FROM VENTAS WHERE ID_VENTA = " + venta.getIdVenta() + ";";
+
 				ResultSet result = s.executeQuery(sentencia);
 				conexion.commit();
 
@@ -107,35 +107,35 @@ public class VentaDAOH2 implements VentaDAO {
 					throw new DAOException();
 
 				} else {
-					
-					lugar.setNombre(result.getString("NOMBRE"));
-					lugar.setDireccion(result.getString("DIRECCION"));
-					lugar.setCapacidadTotal(result.getInt("CAPACIDAD_TOTAL"));
-					lugar.setFotoLugar(result.getString("NOMBRE_IMAGEN_LUGAR"));
-					lugar.setIdLugar(result.getInt("ID_LUGAR"));
-					
+
+					venta.setEspectaculo(new Espectaculo(result.getInt("ID_ESPECTACULO")));
+					venta.setFechaVenta(result.getDate("FECHA_VENTA"));
+					venta.setIdVenta(result.getInt("ID_VENTA"));
+					venta.setNombreCliente(result.getString("NOMBRE_CLIENTE"));
+					venta.setTelefonoCliente(result.getInt("TELEFONO_CLIENTE"));
+					venta.setTotal(result.getDouble("TOTAL"));
+					venta.setUbicacion(new Ubicacion(result.getInt("ID_UBICACION")));
+					venta.setVendedor(new Usuario(result.getString("NOMBRE_USUARIO")));
+
 				}
-				*/
-				
 
 			} catch (SQLException e) {
 				conexion.rollback();
 				throw new DAOException();
-			} finally { 
+			} finally {
 				conexion.close();
 			}
-			
+
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
-				
+
 		return venta;
-		
+
 	}
 
-	
 	public List<Venta> listarVentas() throws DAOException {
-		
+
 		Connection conexion;
 
 		try {
@@ -149,20 +149,25 @@ public class VentaDAOH2 implements VentaDAO {
 		String sentencia = "SELECT * FROM LUGAR;";
 
 		try {
-			
-			/*
+
 			Statement s = conexion.createStatement();
 			ResultSet result = s.executeQuery(sentencia);
 			conexion.commit();
 
 			while (result.next()) {
-				Lugar lugar1 = new Lugar(result.getString("NOMBRE"), result.getString("DIRECCION"),
-						result.getInt("CAPACIDAD_TOTAL"), result.getString("NOMBRE_IMAGEN_LUGAR"),
-						result.getInt("ID_LUGAR"));
+				Venta venta = new Venta(
+						result.getInt("ID_VENTA"), 
+						new Espectaculo(result.getInt("ID_ESPECTACULO")), 
+						result.getDate("FECHA_VENTA"),
+						result.getString("NOMBRE_CLIENTE"),
+						result.getInt("TELEFONO_CLIENTE"),
+						result.getDouble("TOTAL"),
+						new Ubicacion(result.getInt("ID_UBICACION")),
+						new Usuario(result.getString("NOMBRE_USUARIO"))
+						);
 
-				lugaresObtenidos.add(lugar1);
+				ventasObtenidas.add(venta);
 			}
-			*/
 
 		} catch (SQLException e) {
 			throw new DAOException();
@@ -175,7 +180,7 @@ public class VentaDAOH2 implements VentaDAO {
 		}
 
 		return ventasObtenidas;
-		
+
 	}
 
 }

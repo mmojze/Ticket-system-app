@@ -17,6 +17,10 @@ public class Espectaculo {
 		
 	}
 
+	public Espectaculo(int idEspectaculo) {
+		this.idEspectaculo = idEspectaculo;
+	}
+
 	public void setNombreEspectaculo(String nombreEspectaculo) {
 
 		this.nombreEspectaculo = nombreEspectaculo;

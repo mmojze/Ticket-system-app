@@ -70,6 +70,10 @@ public class Ubicacion {
 		this.idUbicacion = idUbicacion;
 	}
 
+	public Ubicacion(int idUbicacion) {
+		this.idUbicacion = idUbicacion;
+	}
+
 	public int getCapacidadUbicacion() {
 		return capacidadUbicacion;
 	}
