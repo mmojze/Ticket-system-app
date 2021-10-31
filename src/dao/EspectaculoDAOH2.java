@@ -83,7 +83,29 @@ public class EspectaculoDAOH2 implements EspectaculoDAO {
 	}
 
 	public void eliminarEspectaculo(Espectaculo espectaculo) throws DAOException {
-		// TODO Auto-generated method stub
+		
+		try {
+			Connection conexion = DBManager.getInstance().getConnection();
+
+			try {
+				
+				Statement s = conexion.createStatement();
+
+				String sentencia = "DELETE FROM ESPECTACULOS" + " WHERE ID_ESPECTACULO = " + espectaculo.getIdEspectaculo() + ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+				
+			} catch (SQLException e) {
+				conexion.rollback();
+				throw new DAOException();
+			} finally {
+				conexion.close();
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
+		}
 
 	}
 

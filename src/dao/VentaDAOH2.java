@@ -86,6 +86,29 @@ public class VentaDAOH2 implements VentaDAO {
 	}
 
 	public void eliminarVenta(Venta venta) throws DAOException {
+		
+		try {
+			Connection conexion = DBManager.getInstance().getConnection();
+
+			try {
+				
+				Statement s = conexion.createStatement();
+
+				String sentencia = "DELETE FROM VENTAS" + " WHERE ID_VENTA = " + venta.getIdVenta() + ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+				
+			} catch (SQLException e) {
+				conexion.rollback();
+				throw new DAOException();
+			} finally {
+				conexion.close();
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
+		}
 
 	}
 

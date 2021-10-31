@@ -11,7 +11,6 @@ import java.util.List;
 import entidades.Lugar;
 import exceptions.DAOException;
 import utilidades_db.DBManager;
-import utilidades_db.TableManager;
 
 public class LugarDAOH2 implements LugarDAO {
 
@@ -81,13 +80,28 @@ public class LugarDAOH2 implements LugarDAO {
 
 	public void eliminarLugar(Lugar lugar) throws DAOException {
 
-		/*
-		 * try { TableManager.borrarFila("LUGAR", "ID_LUGAR", lugar.getIdLugar()); }
-		 * catch (ErrorConexionBDException | ErrorRollbackBDExcepcion |
-		 * ErrorCierreDeConexionException e) { throw new DAOException(); } catch
-		 * (ErrorEjecucionDeSentenciaException e1) { throw new
-		 * DAOErrorEjecucionSentenciaException(); }
-		 */
+		try {
+			Connection conexion = DBManager.getInstance().getConnection();
+
+			try {
+				
+				Statement s = conexion.createStatement();
+
+				String sentencia = "DELETE FROM LUGAR" + " WHERE ID_LUGAR = " + lugar.getIdLugar() + ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+				
+			} catch (SQLException e) {
+				conexion.rollback();
+				throw new DAOException();
+			} finally {
+				conexion.close();
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
+		}
 
 	}
 

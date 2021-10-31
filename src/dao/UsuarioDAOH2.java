@@ -8,10 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.Espectaculo;
-import entidades.Ubicacion;
 import entidades.Usuario;
-import entidades.Venta;
 import exceptions.DAOException;
 import utilidades_db.DBManager;
 
@@ -58,7 +55,6 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 
 	}
 
-	@Override
 	public Usuario crearUsuario(Usuario usuario) throws DAOException {
 		
 		try {
@@ -66,21 +62,14 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 
 			try {
 				
-				/*
-				String sentencia = "INSERT INTO VENTAS(ID_UBICACION, NOMBRE_USUARIO, FECHA_VENTA, NOMBRE_CLIENTE, TELEFONO_CLIENTE, TOTAL) "
-						+ "VALUES (" + venta.getUbicacion().getIdUbicacion() + "', '" + venta.getVendedor().getUsuario()
-						+ "', '" + venta.getFechaVenta() + "', '" + venta.getNombreCliente() + "', '"
-						+ venta.getTelefonoCliente() + "', '" + venta.getTotal() + "');";
+				String sentencia = "INSERT INTO USUARIOS(NOMBRE_USUARIO, NOMBRE, APELLIDO, CONTRASEÑA, ID_ROL) "
+						+ "VALUES (" + usuario.getUsuario() + "', '" + usuario.getNombre()
+						+ "', '" + usuario.getApellido() + "', '"
+						+ usuario.getContraseña() + "', '" + usuario.getTipoUsuario() + "');";
 
 				PreparedStatement s = conexion.prepareStatement(sentencia, Statement.RETURN_GENERATED_KEYS);
 				int result = s.executeUpdate();
 				conexion.commit();
-				ResultSet rs = s.getGeneratedKeys();
-
-				if (rs.next()) {
-					venta.setIdVenta(rs.getInt(1));
-				}
-				*/
 				
 			} catch (SQLException e) {
 				conexion.rollback();
@@ -103,18 +92,15 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 
 			try {
 				
-				/*
-
 				Statement s = conexion.createStatement();
 
-				String sentencia = "UPDATE LUGAR SET ID_UBICACION = " + venta.getUbicacion().getIdUbicacion() + ", "
-						+ "NOMBRE_CLIENTE = '" + venta.getNombreCliente() + "' ," + "TELEFONO_CLIENTE = '"
-						+ venta.getTelefonoCliente() + "' ," + "TOTAL = '" + venta.getTotal() + "' WHERE ID_VENTA = "
-						+ venta.getIdVenta() + ";";
+				String sentencia = "USUARIOS LUGAR SET NOMBRE = " + usuario.getNombre() + ", "
+						+ "APELLIDO = '" + usuario.getApellido() + "' ," + "CONTRASEÑA = '"
+						+ usuario.getContraseña() + "' WHERE NOMBRE_USUARIO = "
+						+ usuario.getUsuario() + ";";
 
 				s.executeUpdate(sentencia);
 				conexion.commit();
-				*/
 				
 			} catch (SQLException e) {
 				conexion.rollback();
@@ -132,8 +118,30 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 	}
 
 	public void eliminarUsuario(Usuario usuario) throws DAOException {
-		// TODO Auto-generated method stub
 		
+		try {
+			Connection conexion = DBManager.getInstance().getConnection();
+
+			try {
+				
+				Statement s = conexion.createStatement();
+
+				String sentencia = "DELETE FROM USUARIOS" + " WHERE NOMBRE_USUARIO = " + usuario.getUsuario() + ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+				
+			} catch (SQLException e) {
+				conexion.rollback();
+				throw new DAOException();
+			} finally {
+				conexion.close();
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
+		}
+				
 	}
 
 	public List<Usuario> listarUsuarios(Usuario usuario) throws DAOException {
@@ -148,30 +156,24 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 
 		List<Usuario> usuariosObtenidos = new ArrayList<Usuario>();
 
-		String sentencia = "SELECT * FROM USUARIO;";
+		String sentencia = "SELECT * FROM USUARIOS;";
 
 		try {
 			
-			/*
 			Statement s = conexion.createStatement();
 			ResultSet result = s.executeQuery(sentencia);
 			conexion.commit();
 
 			while (result.next()) {
-				Venta venta = new Venta(
-						result.getInt("ID_VENTA"), 
-						new Espectaculo(result.getInt("ID_ESPECTACULO")), 
-						result.getDate("FECHA_VENTA"),
-						result.getString("NOMBRE_CLIENTE"),
-						result.getInt("TELEFONO_CLIENTE"),
-						result.getDouble("TOTAL"),
-						new Ubicacion(result.getInt("ID_UBICACION")),
-						new Usuario(result.getString("NOMBRE_USUARIO"))
+				Usuario usuarioObtenido = new Usuario(
+						result.getString("NOMBRE_USUARIO"),
+						result.getString("NOMBRE"),
+						result.getString("APELLIDO"),
+						result.getString("ID_ROL")
 						);
 
-				ventasObtenidas.add(venta);
+				usuariosObtenidos.add(usuarioObtenido);
 			}
-			*/
 
 		} catch (SQLException e) {
 			throw new DAOException();

@@ -12,7 +12,6 @@ import entidades.Lugar;
 import entidades.Ubicacion;
 import exceptions.DAOException;
 import utilidades_db.DBManager;
-import utilidades_db.TableManager;
 
 public class UbicacionDAOH2 implements UbicacionDAO {
 
@@ -118,11 +117,28 @@ public class UbicacionDAOH2 implements UbicacionDAO {
 
 	public void eliminarUbicacion(Ubicacion ubicacion) throws DAOException {
 
-		/*
-		 * try { TableManager.borrarFila("UBICACIONES", "ID_UBICACION",
-		 * ubicacion.getIdUbicacion()); } catch (SQLException e) { throw new
-		 * DAOException(); }
-		 */
+		try {
+			Connection conexion = DBManager.getInstance().getConnection();
+
+			try {
+				
+				Statement s = conexion.createStatement();
+
+				String sentencia = "DELETE FROM UBICACIONES" + " WHERE ID_UBICACION = " + ubicacion.getIdUbicacion() + ";";
+
+				s.executeUpdate(sentencia);
+				conexion.commit();
+				
+			} catch (SQLException e) {
+				conexion.rollback();
+				throw new DAOException();
+			} finally {
+				conexion.close();
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException();
+		}
 
 	}
 
