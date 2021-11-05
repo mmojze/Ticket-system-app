@@ -144,7 +144,7 @@ public class UsuarioDAOH2 implements UsuarioDAO {
 				
 	}
 
-	public List<Usuario> listarUsuarios(Usuario usuario) throws DAOException {
+	public List<Usuario> listarUsuarios() throws DAOException {
 		
 		Connection conexion;
 
