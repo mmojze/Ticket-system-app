@@ -12,13 +12,9 @@ import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
 import entidades.Ubicacion;
-import exceptions.ArchivoNoExisteException;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceException;
 import servicios.LugarService;
 import servicios.UbicacionService;
-import utilidades.OperacionesImagenes;
 
 public class FormLugarModificar extends AbstractFormLugar {
 
@@ -55,8 +51,8 @@ public class FormLugarModificar extends AbstractFormLugar {
 
 		if (accion.getSource() == botonCargarImagen) {
 
-			File archivo = OperacionesImagenes.cargarImagen(OperacionesImagenes.DIR_IMG_LUGAR);
-			nombreImagen = archivo.getName();
+			//File archivo = OperacionesImagenes.cargarImagen(OperacionesImagenes.DIR_IMG_LUGAR);
+			//nombreImagen = archivo.getName();
 
 		} else if (accion.getSource() == siguiente) {
 
@@ -86,12 +82,6 @@ public class FormLugarModificar extends AbstractFormLugar {
 					lugarModificado.setUbicacionesDeLugar(ubicaciones);
 					lugarModificado.setCapacidadUtilizada(this.capacidadOriginal);
 					panelManager.mostrarFormUbicacionABM(lugarModificado);
-				} catch (ServiceErrorDeConexionBDException e) {
-					JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (ServiceErrorEjecucionSentenciaException e) {
-					JOptionPane.showMessageDialog(this, "Error", "No se pudo modificar el lugar",
-							JOptionPane.ERROR_MESSAGE);
 				} catch (ServiceException e) {
 					JOptionPane.showMessageDialog(this, "Error", "No hay ubicaciones para éste lugar",
 							JOptionPane.ERROR_MESSAGE);
@@ -100,7 +90,8 @@ public class FormLugarModificar extends AbstractFormLugar {
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {
-
+			
+			/*
 			try {
 				OperacionesImagenes.borrarImagen(this.nombreImagen, OperacionesImagenes.DIR_IMG_LUGAR);
 			} catch (ArchivoNoExisteException e) {
@@ -109,7 +100,8 @@ public class FormLugarModificar extends AbstractFormLugar {
 
 			this.nombreImagen = null;
 			JOptionPane.showMessageDialog(popupEstadio, "Imagen borrada");
-
+			*/
+			
 		}
 
 	}

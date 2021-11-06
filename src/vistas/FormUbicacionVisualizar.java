@@ -10,8 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import utilidades.OperacionesImagenes;
-
 public class FormUbicacionVisualizar extends AbstractFormUbicacion {
 
 	public FormUbicacionVisualizar(PanelManager panelManager) {
@@ -26,7 +24,8 @@ public class FormUbicacionVisualizar extends AbstractFormUbicacion {
 	}
 	
 	public void setImagenUbicacion() {
-
+		
+		/*
 		try {
 			BufferedImage imagenUbicacion = ImageIO
 					.read(new FileInputStream(OperacionesImagenes.DIR_IMG_UBICACION + "/" + this.imagenUbicacion));
@@ -36,6 +35,7 @@ public class FormUbicacionVisualizar extends AbstractFormUbicacion {
 			JOptionPane.showMessageDialog(this, "Error", "No se encontró la imagen",
 					JOptionPane.ERROR_MESSAGE);
 		}
+		*/
 
 	}
 

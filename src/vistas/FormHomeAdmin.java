@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 
 import entidades.Lugar;
 import entidades.Usuario;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceException;
 import servicios.LugarService;
 
@@ -65,9 +63,6 @@ public class FormHomeAdmin extends AbstractFormHome {
 			try {
 				lugaresListados = servicio.listarLugares();
 				panelManager.mostrarFormLugarAdministrar(lugaresListados);
-			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
-				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
-						JOptionPane.ERROR_MESSAGE);
 			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
 			}
@@ -80,9 +75,6 @@ public class FormHomeAdmin extends AbstractFormHome {
 			try {
 				lugaresListados = servicio.listarLugares();
 				panelManager.mostrarFormLugarListar(lugaresListados);
-			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
-				JOptionPane.showMessageDialog(this, "Error", "Hubo un error en la conexión a la base de datos",
-						JOptionPane.ERROR_MESSAGE);
 			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay lugares para listar", JOptionPane.ERROR_MESSAGE);
 			}

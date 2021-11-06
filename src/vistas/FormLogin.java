@@ -13,10 +13,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import entidades.Usuario;
-import exceptions.ErrorConexionBDException;
-import exceptions.NoSeEncontroUsuarioException;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceException;
 import servicios.UsuarioService;
 
@@ -88,8 +84,7 @@ public class FormLogin extends JPanel implements ActionListener {
 			Usuario usuario = new Usuario(tUsuario.getText(), new String(tContraseña.getPassword()));
 
 			try {
-				// Obtenemos los detalles del usuario 
-				usuario = serviceUsuario.getUser(usuario);
+				usuario = serviceUsuario.consultarUsuario(usuario);
 
 				switch (usuario.getTipoUsuario()) {
 				case "Administrador":
@@ -102,10 +97,7 @@ public class FormLogin extends JPanel implements ActionListener {
 			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(popupLogin,
 						"El usuario no existe o la contraseña es incorrecta, por favor revise los datos");
-			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
-				JOptionPane.showMessageDialog(popupLogin, "Hubo un error de conexión a la base de datos");
 			}
-
 		}
 
 	}

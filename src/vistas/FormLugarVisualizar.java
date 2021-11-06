@@ -11,8 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import utilidades.OperacionesImagenes;
-
 public class FormLugarVisualizar extends AbstractFormLugar {
 
 	private JButton botonVolver;
@@ -47,7 +45,8 @@ public class FormLugarVisualizar extends AbstractFormLugar {
 	}
 
 	public void setimagenEstadio() {
-
+		
+		/*
 		try {
 			BufferedImage imagenEstadio = ImageIO
 					.read(new FileInputStream(OperacionesImagenes.DIR_IMG_LUGAR + "/" + lugar.getFotoLugar()));
@@ -57,7 +56,9 @@ public class FormLugarVisualizar extends AbstractFormLugar {
 			JOptionPane.showMessageDialog(this, "Error", "No se encontró la imagen",
 					JOptionPane.ERROR_MESSAGE);
 		}
-
+		*/
+		
 	}
+	
 
 }

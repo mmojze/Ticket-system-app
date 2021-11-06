@@ -14,12 +14,9 @@ import javax.swing.JTextField;
 
 import entidades.Lugar;
 import entidades.Ubicacion;
-import exceptions.ArchivoNoExisteException;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceException;
 import servicios.UbicacionService;
 import tablemodels.UbicacionTableModel;
-import utilidades.OperacionesImagenes;
 
 public class FormUbicacionABM extends AbstractFormTable {
 
@@ -163,8 +160,7 @@ public class FormUbicacionABM extends AbstractFormTable {
 							this.modificarUbicacion = false;
 							this.idUbicacionModificar = 0;
 						} else {
-							int idGenerado = servicio.crearUbicacion(ubicacion, this.lugar);
-							ubicacion.setIdUbicacion(idGenerado);
+							//ubicacion = servicio.crearUbicacion(ubicacion, this.lugar);
 						}
 
 						UbicacionTableModel.getContenido().add(ubicacion);
@@ -174,10 +170,7 @@ public class FormUbicacionABM extends AbstractFormTable {
 						this.tNombre.setText(null);
 						this.fotoUbicacion = null;
 
-					} catch (ServiceErrorDeConexionBDException e) {
-						JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
-								JOptionPane.ERROR_MESSAGE);
-					} catch (ServiceErrorEjecucionSentenciaException e) {
+					} catch (ServiceException e) {
 						JOptionPane.showMessageDialog(this, "Error", "Hubo un error al crear o modificar la ubicación",
 								JOptionPane.ERROR_MESSAGE);
 					}
@@ -187,9 +180,11 @@ public class FormUbicacionABM extends AbstractFormTable {
 			}
 
 		} else if (accion.getSource() == botonCargarImagen) {
-
+			
+			/*
 			File imagenCargada = OperacionesImagenes.cargarImagen(OperacionesImagenes.DIR_IMG_UBICACION);
 			this.fotoUbicacion = imagenCargada.getName();
+			*/
 
 		} else if (accion.getSource() == botonModificar) {
 
@@ -210,16 +205,13 @@ public class FormUbicacionABM extends AbstractFormTable {
 			UbicacionService servicio = new UbicacionService();
 
 			try {
-				servicio.borrarUbicacion(ubicacion);
+				servicio.eliminarUbicacion(ubicacion);
 				this.totalCapacidadUbicaciones = totalCapacidadUbicaciones - ubicacion.getCapacidad();
 				this.UbicacionTableModel.getContenido().remove(filaSeleccionada);
 				UbicacionTableModel.fireTableDataChanged();
 				this.fotoUbicacion = null;
-			} catch (ServiceErrorDeConexionBDException e) {
-				JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
-						JOptionPane.ERROR_MESSAGE);
-			} catch (ServiceErrorEjecucionSentenciaException e) {
-				JOptionPane.showMessageDialog(this, "Error", "No se pudo crear el lugar", JOptionPane.ERROR_MESSAGE);
+			} catch (ServiceException e) {
+				JOptionPane.showMessageDialog(this, "Error", "No se pudo borrar el lugar", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} else if (accion.getSource() == botonFinalizar) {
@@ -230,11 +222,11 @@ public class FormUbicacionABM extends AbstractFormTable {
 			} else if (this.totalCapacidadUbicaciones < lugar.getCapacidadTotal()) {
 				JOptionPane.showMessageDialog(this,
 						"Faltan agregar ubicaciones para completar la capacidad total del estadio");
-				System.out.println(this.totalCapacidadUbicaciones);
 			}
 
 		} else if (accion.getSource() == botonBorrarImagen) {
-
+			
+			/*
 			try {
 				OperacionesImagenes.borrarImagen(this.fotoUbicacion, OperacionesImagenes.DIR_IMG_UBICACION);
 				this.fotoUbicacion = null;
@@ -242,6 +234,7 @@ public class FormUbicacionABM extends AbstractFormTable {
 			} catch (ArchivoNoExisteException e) {
 				JOptionPane.showMessageDialog(this, "El archivo no existe o ninguna imagen fue cargada");
 			}
+			*/
 
 		}
 

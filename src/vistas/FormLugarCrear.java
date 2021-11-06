@@ -13,12 +13,8 @@ import dao.LugarDAO;
 import dao.LugarDAOH2;
 import entidades.Lugar;
 import entidades.Ubicacion;
-import exceptions.ArchivoNoExisteException;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceException;
 import servicios.LugarService;
-import utilidades.OperacionesImagenes;
 
 public class FormLugarCrear extends AbstractFormLugar {
 
@@ -69,12 +65,8 @@ public class FormLugarCrear extends AbstractFormLugar {
 				LugarService servicio = new LugarService();
 
 				try {
-					int idGenerado = servicio.crearLugar(nuevoLugar);
-					nuevoLugar.setIdLugar(idGenerado);
-				} catch (ServiceErrorDeConexionBDException e) {
-					JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (ServiceErrorEjecucionSentenciaException e) {
+					nuevoLugar = servicio.crearLugar(nuevoLugar);
+				} catch (ServiceException e) {
 					JOptionPane.showMessageDialog(this, "Error", "No se pudo crear el lugar",
 							JOptionPane.ERROR_MESSAGE);
 				}

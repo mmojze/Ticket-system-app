@@ -13,8 +13,6 @@ import javax.swing.JTable;
 
 import entidades.Lugar;
 import entidades.Ubicacion;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
 import exceptions.ServiceException;
 import servicios.UbicacionService;
 import tablemodels.ListarLugaresTableModel;
@@ -66,9 +64,6 @@ public class FormLugarListar extends AbstractFormTable {
 			try {
 				List<Ubicacion> ubicaciones = servicio.listarUbicacionesPorLugar(lugar);
 				panelManager.mostrarFormUbicacionListar(ubicaciones);
-			} catch (ServiceErrorDeConexionBDException|ServiceErrorEjecucionSentenciaException e) {
-				JOptionPane.showMessageDialog(this, "Error", "No se pudo conectar a la BD",
-						JOptionPane.ERROR_MESSAGE);
 			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "No hay datos de ubicación para este lugar",
 						JOptionPane.ERROR_MESSAGE);

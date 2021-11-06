@@ -9,8 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import entidades.Lugar;
-import exceptions.ServiceErrorDeConexionBDException;
-import exceptions.ServiceErrorEjecucionSentenciaException;
+import exceptions.ServiceException;
 import servicios.LugarService;
 import tablemodels.LugarTableModel;
 
@@ -55,7 +54,7 @@ public class FormLugarAdministrar extends AbstractFormTable {
 				LugarService servicio = new LugarService();
 				servicio.borrarLugar(lugar);
 				LugarTableModel.fireTableDataChanged();
-			} catch (ServiceErrorDeConexionBDException | ServiceErrorEjecucionSentenciaException e) {
+			} catch (ServiceException e) {
 				JOptionPane.showMessageDialog(this, "Error", "Hubo un error de conexión a la base de datos",
 						JOptionPane.ERROR_MESSAGE);
 			}
