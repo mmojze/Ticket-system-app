@@ -41,6 +41,7 @@ public class FormLugarCrear extends AbstractFormLugar {
 
 		botonVolver = new JButton("Volver");
 		botonVolver.addActionListener(this);
+		tCapacidad.setValue(1);
 
 		this.add(botonCargarImagen);
 		this.add(botonBorrarImagen);
@@ -51,31 +52,22 @@ public class FormLugarCrear extends AbstractFormLugar {
 	public void actionPerformed(ActionEvent accion) {
 
 		if (accion.getSource() == siguiente) {
+			
+			//int capacidad = Integer.parseInt(tCapacidad.getText());
+			List<Ubicacion> ubicaciones = new ArrayList<Ubicacion>();
+			Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), (Integer) tCapacidad.getValue(), nombreImagen,
+					ubicaciones, 0);
+			LugarService servicio = new LugarService();
 
-			if (tNombreEstadio.getText().isEmpty() == true || tDireccion.getText().isEmpty() == true
-					|| tCapacidad.getText().isEmpty() == true) {
-
-				JOptionPane.showMessageDialog(popupEstadio, "Por favor, complete todos los datos obligatorios");
-
-			} else {
-
-				int capacidad = Integer.parseInt(tCapacidad.getText());
-				List<Ubicacion> ubicaciones = new ArrayList<Ubicacion>(); 
-				Lugar nuevoLugar = new Lugar(tNombreEstadio.getText(), tDireccion.getText(), capacidad, nombreImagen, ubicaciones, 0);
-				LugarService servicio = new LugarService();
-
-				try {
-					nuevoLugar = servicio.crearLugar(nuevoLugar);
-				} catch (ServiceException e) {
-					JOptionPane.showMessageDialog(this, "Error", "No se pudo crear el lugar",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
+			try {
+				nuevoLugar = servicio.crearLugar(nuevoLugar);
 				JOptionPane.showMessageDialog(popupEstadio, "Lugar creado con éxito");
-
 				panelManager.mostrarFormUbicacionABM(nuevoLugar);
-
+			} catch (ServiceException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			}
+
+
 
 		} else if (accion.getSource() == botonVolver) {
 

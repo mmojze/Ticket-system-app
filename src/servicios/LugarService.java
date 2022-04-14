@@ -7,6 +7,7 @@ import dao.LugarDAOH2;
 import entidades.Lugar;
 import exceptions.DAOException;
 import exceptions.ServiceException;
+import exceptions.ServiceFaltanDatosException;
 
 public class LugarService {
 
@@ -17,6 +18,10 @@ public class LugarService {
 	public Lugar crearLugar(Lugar lugar) throws ServiceException {
 
 		LugarDAO lugarDAO = new LugarDAOH2();
+		
+		if (lugar.getDireccion() == "" || lugar.getNombre() == "" || lugar.getCapacidadTotal() < 1 ) {
+			throw new ServiceFaltanDatosException("Por favor, complete los datos obligatorios del lugar");
+		}
 		
 		try {
 			lugar = lugarDAO.crearLugar(lugar);

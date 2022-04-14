@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import entidades.Lugar;
 
 public abstract class AbstractFormLugar extends JPanel implements ActionListener {
@@ -17,7 +19,7 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 	protected JLabel lNombreEstadio;
 	protected JTextField tNombreEstadio;
 	protected JLabel lCapacidad;
-	protected JTextField tCapacidad;
+	protected JSpinner tCapacidad;
 	protected JLabel lDireccion;
 	protected JTextField tDireccion;
 	protected JFrame popupEstadio;
@@ -43,7 +45,13 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 		this.add(lNombreEstadio);
 
 		lCapacidad = new JLabel("Capacidad total");
-		tCapacidad = new JTextField();
+		tCapacidad = new JSpinner();
+		
+		SpinnerNumberModel capacidadModel = new SpinnerNumberModel();
+		capacidadModel.setStepSize(1);
+		capacidadModel.setMinimum(1);
+		tCapacidad.setModel(capacidadModel);
+		
 		lDireccion = new JLabel("Dirección");
 		tDireccion = new JTextField();
 		siguiente = new JButton("Siguiente");
@@ -65,10 +73,9 @@ public abstract class AbstractFormLugar extends JPanel implements ActionListener
 
 	public void completarCamposLugar() {
 		
-		String capacidad = Integer.toString(this.lugar.getCapacidadTotal());
 		tNombreEstadio.setText(this.lugar.getNombre());
 		tDireccion.setText(this.lugar.getDireccion());
-		tCapacidad.setText(capacidad);
+		tCapacidad.setValue(this.lugar.getCapacidadTotal());
 		this.nombreImagen = this.lugar.getFotoLugar();
 
 	}

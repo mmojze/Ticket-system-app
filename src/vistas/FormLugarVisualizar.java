@@ -23,7 +23,7 @@ public class FormLugarVisualizar extends AbstractFormLugar {
 
 	public void armarFormLugarVisualizar() {
 
-		this.tCapacidad.setEditable(false);
+		this.tCapacidad.setEnabled(false);;
 		this.tDireccion.setEditable(false);
 		this.tNombreEstadio.setEditable(false);
 		this.remove(siguiente);
